@@ -5,7 +5,7 @@ import {
   UserCreateInput,
   UserUpdateInput
 } from "../generated/prisma-client";
-import { transport, validateEmail, validPassword } from "../util";
+import { transporter, validateEmail, validPassword } from "../util";
 import { bookingFragment } from "../util/adminProperties";
 
 interface IContext {
@@ -387,7 +387,7 @@ const Mutation = {
         to: user.email
       };
 
-      await transport.sendMail(email);
+      await transporter.sendMail(email);
 
       return { message: "Requested password change successfully" };
     } catch (e) {

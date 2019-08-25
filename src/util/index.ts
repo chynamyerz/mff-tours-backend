@@ -2,12 +2,13 @@ import { validate } from "isemail";
 import { createTransport } from "nodemailer";
 
 // Transport for sending an email.
-export const transport = createTransport({
+export const transporter = createTransport({
   auth: {
-    pass: process.env.MAIL_PASSWORD,
-    user: process.env.MAIL_USER
+    pass: process.env.MMF_MAIL_PASSWORD,
+    user: process.env.MMF_MAIL_USER
   },
-  service: process.env.MAIL_SERVICE
+  port: 465,
+  service: process.env.MMF_MAIL_SERVICE
 });
 
 // const port: number = process.env.MAIL_PORT
