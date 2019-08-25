@@ -1,0 +1,65 @@
+{
+  "name": "mff-tours-backend",
+  "version": "1.0.0",
+  "description": "An API server for the MFF Tours",
+  "main": "index.ts",
+  "scripts": {
+    "deploy": "cd src/; prisma deploy --env-file ../.env",
+    "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
+    "start": "ts-node -r dotenv/config src/index.ts",
+    "test": "jest",
+    "format": "prettier --write 'src/**/*.{js,ts,tsx,json,graphql}'",
+    "lint": "tslint 'src/**/*.{ts,tsx}'",
+    "lint:fix": "tslint --fix 'src/**/*.{ts,tsx}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chynamyerz/mff-tours-backend.git"
+  },
+  "author": "Sifiso Myeza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chynamyerz/mff-tours-backend/issues"
+  },
+  "homepage": "https://github.com/chynamyerz/mff-tours-backend#readme",
+  "dependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/body-parser": "^1.17.1",
+    "@types/express-session": "^1.15.14",
+    "@types/graphql": "^14.5.0",
+    "@types/nodemailer": "^6.2.1",
+    "@types/passport-local": "^1.0.33",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
+    "express-session": "^1.16.2",
+    "graphql-yoga": "^1.18.2",
+    "isemail": "^3.2.0",
+    "moment": "^2.24.0",
+    "nodemailer": "^6.3.0",
+    "nodemon": "^1.19.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "prisma-client-lib": "^1.34.6",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  },
+  "devDependencies": {
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.3",
+    "prettier": "^1.18.2",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,tsx,json,css,graphql,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
