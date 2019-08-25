@@ -1,0 +1,66 @@
+type User {
+  id: ID! @id
+  email: String! @unique
+  name: String!
+  surname: String!
+  contact: String!
+  address: String
+  city: String!
+  state: String!
+  zip: String!
+  password: String!
+  oneTimePin: String
+  resetTokenExpiry: DateTime
+  role: Role @scalar
+  bookings: [Booking!]!
+}
+
+type Vehicle {
+  id: ID! @id
+  group: VehicleGroup! @scalar
+  size: VehicleSize! @scalar
+  name: String!
+  model: String!
+  make: String!
+  year: DateTime!
+  imageURI: String!
+  status: VehicleStatus! @scalar
+}
+
+type Booking {
+  id: ID! @id
+  vehicle: Vehicle!
+  user: User!
+  pickupDate: DateTime!
+  returnDate: DateTime!
+  status: BookingStatus! @scalar
+}
+
+enum Role {
+  ADMIN
+}
+
+enum VehicleSize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+enum VehicleGroup {
+  A
+  B
+  C
+  D
+  E
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+enum BookingStatus {
+  BOOKED
+  CANCELLED
+  RETURNED
+}

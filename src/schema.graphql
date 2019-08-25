@@ -1,0 +1,258 @@
+"""
+The schema's root query type.
+"""
+type Query {
+  """
+  Returns the currently logged in user, null if the user is not logged in.
+  """
+  user: User
+
+  """
+  Returns the list of users regstered.
+  """
+  users: [User!]!
+
+  """
+  Returns the list of vehicles available for booking.
+  """
+  vehicles: [Vehicle!]!
+
+  """
+  Return the list of booked vehicles.
+  """
+  bookings: [Booking!]!
+}
+
+"""
+The schema's root mutation type.
+"""
+type Mutation {
+  """
+  Adds the newly created user when valid information provided,
+  The username or an email address should not exist already.
+
+  parameters
+    email:
+      User's email address
+    name:
+      User's name
+    surname:
+      User's surname
+    contact:
+      User's contact
+    address:
+      User's address
+    city:
+      User's city
+    state:
+      State (province)
+    zip:
+      State (province) zip code
+    password:
+      User's password
+
+  Returns the SuccessMessage
+  """
+  signup(
+    email: String!
+    name: String!
+    surname: String!
+    contact: String!
+    address: String!
+    city: String!
+    state: String!
+    zip: String!
+    password: String!
+  ): SuccessMessage!
+
+  """
+  Updates the user information when valid information provided,
+  The username or an email address should not exist already.
+
+  parameters
+    email:
+      User's email address
+    name:
+      User's name
+    surname:
+      User's surname
+    contact:
+      User's contact
+    address:
+      User's address
+    city:
+      User's city
+    state:
+      State (province)
+    zip:
+      State (province) zip code
+    password:
+      User's current password
+    newpassword:
+      User's new password
+
+  Returns the SuccessMessage
+  """
+  updateUser(
+    email: String
+    name: String
+    surname: String
+    contact: String
+    address: String
+    city: String
+    state: String
+    zip: String
+    password: String!
+    newPassword: String
+  ): SuccessMessage!
+
+  """
+  Vehicle booking.
+  """
+  bookVehicle(
+    email: String
+    vehicleId: ID!
+    pickupDate: String!
+    returnDate: String!
+  ): SuccessMessage!
+
+  """
+  Vehicle booked cancelation.
+  """
+  cancelBooking(bookingId: ID!): SuccessMessage!
+
+  """
+  Requesting a OTP to use when changing the forgotten password.
+
+  parameters
+    email:
+      A registered email to change password for
+
+  Returns the SuccessMessage
+  """
+  requestReset(email: String!): SuccessMessage!
+
+  """
+  Reset the password
+
+  parameters
+    oneTimePin: A valid OTP which was requeted to change the password (Valid for an hour)
+    password: A new password
+
+  Returns the SuccessMessage
+  """
+  resetPassword(oneTimePin: String!, password: String!): SuccessMessage!
+}
+
+"""
+The User type
+"""
+type User {
+  """
+  An id to used to identify the user
+  """
+  id: ID!
+  """
+  User's email address
+  """
+  email: String!
+  """
+  User's name
+  """
+  name: String!
+  """
+  User's surname
+  """
+  surname: String!
+  """
+  User's contact number
+  """
+  contact: String!
+  """
+  User's address
+  """
+  address: String!
+  """
+  City
+  """
+  city: String!
+  """
+  State (Province)
+  """
+  state: String!
+  """
+  State (Province) zip code
+  """
+  zip: String!
+  """
+  User bookings
+  """
+  bookings: [Booking!]!
+  """
+  User role
+  """
+  role: Role
+}
+
+"""
+The booking type
+"""
+type Booking {
+  id: ID!
+  vehicle: Vehicle!
+  user: User!
+  pickupDate: String!
+  returnDate: String!
+  status: BookingStatus!
+}
+
+"""
+The vehicle type
+"""
+type Vehicle {
+  id: ID!
+  group: VehicleGroup!
+  size: VehicleSize!
+  name: String!
+  model: String!
+  make: String!
+  year: String!
+  imageURI: String!
+  status: VehicleStatus!
+}
+
+"""
+The SuccessMessage type
+"""
+type SuccessMessage {
+  message: String
+}
+
+enum Role {
+  ADMIN
+}
+
+enum VehicleSize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+enum VehicleGroup {
+  A
+  B
+  C
+  D
+  E
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+enum BookingStatus {
+  BOOKED
+  CANCELLED
+  RETURNED
+}
