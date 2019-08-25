@@ -61,7 +61,7 @@ const createServer = async () => {
       cookie: {
         httpOnly: true,
         path: "/",
-        sameSite: true,
+        sameSite: false,
         secure: false
       },
       name: "connect.sid",
