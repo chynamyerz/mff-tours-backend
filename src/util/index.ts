@@ -1,3 +1,5 @@
+// tslint:disable-next-line:no-var-requires
+require("now-env");
 import { validate } from "isemail";
 import { createTransport } from "nodemailer";
 

@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@now/node-server"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "src/index.ts"
+    },
+    {
+      "src": "/auth/login",
+      "dest": "src/index.ts"
+    },
+    {
+      "src": "/auth/logout",
+      "dest": "src/index.ts"
+    }
+  ],
+  "env": {
+    "MMF_PRISMA_ENDPOINT": "@mmf_prisma_endpoint",
+    "MMF_SESSION_SECRET": "@mmf_session_secret",
+    "MMF_FRONTEND_HOST": "@mmf_frontend_host",
+    "MMF_MAIL_USER": "@mmf_mail_user",
+    "MMF_MAIL_PASSWORD": "@mmf_mail_password",
+    "MMF_MAIL_SERVICE": "@mmf_mail_service"
+  }
+}

@@ -1,3 +1,5 @@
+// tslint:disable-next-line:no-var-requires
+require("now-env");
 import bcrypt from "bcrypt";
 import bodyParser from "body-parser";
 import session from "express-session";
@@ -38,7 +40,7 @@ const createServer = async () => {
       user: request.user
     }),
     resolvers,
-    typeDefs: "./src/schema.graphql"
+    typeDefs: __dirname + "/schema.graphql"
   });
 
   // Allow server to use the cors

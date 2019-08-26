@@ -1,3 +1,5 @@
+// tslint:disable-next-line:no-var-requires
+require("now-env");
 import createServer from "./createServer";
 
 const launchServer = async () => {
