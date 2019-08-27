@@ -108,6 +108,19 @@ type Mutation {
 
   """
   Vehicle booking.
+
+  An admin person is allowed to book on behalf of the client.
+  An email of the user to book for must be provided.
+
+  parameters
+    email:
+      User's email address to book for by an admin
+    vehicleId:
+      A vehicle id
+    pickupDate:
+      A pick up date
+    returnDate:
+      A return date
   """
   bookVehicle(
     email: String
@@ -118,8 +131,46 @@ type Mutation {
 
   """
   Vehicle booked cancelation.
+
+  parameters
+    bookingId:
+      A booking id of the booking to cancel
   """
   cancelBooking(bookingId: ID!): SuccessMessage!
+
+  """
+  Add a new vehicle.
+
+  Only an admin person is allowed to add the new vehicle
+
+  parameters
+    group:
+      Vehicle group (A, B, C, D, E)
+    size:
+      Vehicle size (SMALL, MEDIUM, LARGE)
+    name:
+      Vehicle name (Toyata, BWM)
+    model:
+      Vehicle model (1 series for BMW, Polo for VW)
+    make:
+      Vehicle make (Hatchback, Sedan)
+    year:
+      Vehicle production year
+    imageURI:
+      Vehicle image uri
+    status:
+      Vehicle status (AVAILABLE, UNAVAILABLE)
+  """
+  addVehicle(
+    group: String!
+    size: String!
+    name: String!
+    model: String!
+    make: String!
+    year: String!
+    imageURI: String!
+    status: String!
+  ): SuccessMessage!
 
   """
   Requesting a OTP to use when changing the forgotten password.

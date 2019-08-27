@@ -3,7 +3,8 @@ import moment from "moment";
 import {
   Prisma,
   UserCreateInput,
-  UserUpdateInput
+  UserUpdateInput,
+  VehicleCreateInput
 } from "../generated/prisma-client";
 import { transporter, validateEmail, validPassword } from "../util";
 import { bookingFragment } from "../util/adminProperties";
@@ -330,6 +331,56 @@ const Mutation = {
       });
 
       return { message: "Cancelled booking successfully" };
+    } catch (e) {
+      throw Error(e.message);
+    }
+  },
+
+  /**
+   * Add a new vehicle
+   *
+   * @param root root
+   * @param args arguments
+   * @param ctx context
+   *
+   * Return the success message
+   */
+  async addVehicle(root: any, args: VehicleCreateInput, ctx: IContext) {
+    // Check if the user is logged in
+    if (!ctx.user) {
+      throw new Error("You must be logged in to make a booking.");
+    }
+
+    try {
+      // currently logged in user
+      const user = await ctx.prisma.user({
+        id: ctx.user.id
+      });
+
+      if (!user) {
+        throw Error(`We couldn't retrieve your information. 
+        Either you are not registered or something went wrong.
+        If the latter, please try again later, else make sure you are rigistered`);
+      }
+
+      // You must be an admin
+      if (!(user.role === "ADMIN")) {
+        throw Error(`Only admin are allowed to add vehicle`);
+      }
+
+      // Add vehicle
+      await ctx.prisma.createVehicle({
+        group: args.group,
+        imageURI: args.imageURI,
+        make: args.make,
+        model: args.model,
+        name: args.name,
+        size: args.size,
+        status: args.status,
+        year: args.year
+      });
+
+      return { message: "Vehicle added succefully." };
     } catch (e) {
       throw Error(e.message);
     }
