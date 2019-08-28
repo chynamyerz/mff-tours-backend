@@ -55,7 +55,7 @@ const Query = {
    * @param args arguments
    * @param ctx context
    *
-   * Returns the list of slots information
+   * Returns the list of vehicles information
    */
   async vehicles(root: any, args: any, ctx: IContext) {
     try {

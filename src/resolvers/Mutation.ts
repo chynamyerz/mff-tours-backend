@@ -4,7 +4,8 @@ import {
   Prisma,
   UserCreateInput,
   UserUpdateInput,
-  VehicleCreateInput
+  VehicleCreateInput,
+  VehicleUpdateInput
 } from "../generated/prisma-client";
 import { transporter, validateEmail, validPassword } from "../util";
 import { bookingFragment } from "../util/adminProperties";
@@ -17,6 +18,12 @@ interface IContext {
 // Defining user update interface
 interface IUserUpdate extends UserUpdateInput {
   newPassword?: string;
+}
+
+// Defining vehicle update interface
+interface IVehicleUpdate extends VehicleUpdateInput {
+  vehicleId: string;
+  password: string;
 }
 
 /**
@@ -85,7 +92,7 @@ const Mutation = {
   async updateUser(root: any, args: IUserUpdate, ctx: any) {
     // Check if the user is logged in
     if (!ctx.user) {
-      throw new Error("You must be logged in to update user information.");
+      throw new Error("You must be logged in.");
     }
 
     try {
@@ -181,7 +188,7 @@ const Mutation = {
   async bookVehicle(root: any, args: any, ctx: IContext) {
     // Check if the user is logged in
     if (!ctx.user) {
-      throw new Error("You must be logged in to make a booking.");
+      throw new Error("You must be logged in.");
     }
 
     try {
@@ -267,7 +274,7 @@ const Mutation = {
   async cancelBooking(root: any, args: any, ctx: IContext) {
     // Check if the user is logged in
     if (!ctx.user) {
-      throw new Error("You must be logged to cancel the booking");
+      throw new Error("You must be logged in.");
     }
 
     try {
@@ -348,7 +355,7 @@ const Mutation = {
   async addVehicle(root: any, args: VehicleCreateInput, ctx: IContext) {
     // Check if the user is logged in
     if (!ctx.user) {
-      throw new Error("You must be logged in to make a booking.");
+      throw new Error("You must be logged in.");
     }
 
     try {
@@ -381,6 +388,172 @@ const Mutation = {
       });
 
       return { message: "Vehicle added succefully." };
+    } catch (e) {
+      throw Error(e.message);
+    }
+  },
+
+  /**
+   * Update a vehicle
+   *
+   * @param root root
+   * @param args arguments
+   * @param ctx context
+   *
+   * Return the success message
+   */
+  async updateVehicle(root: any, args: IVehicleUpdate, ctx: IContext) {
+    // Check if the user is logged in
+    if (!ctx.user) {
+      throw new Error("You must be logged in.");
+    }
+
+    try {
+      const user = await ctx.prisma.user({ id: ctx.user.id });
+
+      if (!user) {
+        throw Error(`We couldn't retrieve your information. 
+        Either you are not registered or something went wrong.
+        If the latter, please try again later, else make sure you are rigistered`);
+      }
+
+      // Check if the user password is correct
+      if (user && !(await bcrypt.compare(args.password, user.password))) {
+        throw new Error("Please provide a correct user password");
+      }
+
+      // You must be an admin
+      if (!(user.role === "ADMIN")) {
+        throw Error(`Only admin are allowed to add vehicle`);
+      }
+
+      const vehicle: any = await ctx.prisma.vehicle({
+        id: args.vehicleId
+      });
+
+      if (!vehicle) {
+        throw Error(`We couldn't retrieve vehicle information. 
+        Either it does not exist or something went wrong.
+        If the latter, please try again later, else make sure vehicle exist by adding it first`);
+      }
+
+      // An object holding arguments to update
+      const vehicleToUpdate: VehicleUpdateInput = {};
+
+      // If vehicle group is to change
+      if (args.group) {
+        vehicleToUpdate.group = args.group;
+      }
+
+      // If vehicle imageURI is to change
+      if (args.imageURI) {
+        vehicleToUpdate.imageURI = args.imageURI;
+      }
+
+      // If vehicle make is to change
+      if (args.make) {
+        vehicleToUpdate.make = args.make;
+      }
+
+      // If vehicle model is to change
+      if (args.model) {
+        vehicleToUpdate.model = args.model;
+      }
+
+      // If vehicle model is to change
+      if (args.model) {
+        vehicleToUpdate.model = args.model;
+      }
+
+      // If vehicle name is to change
+      if (args.name) {
+        vehicleToUpdate.name = args.name;
+      }
+
+      // If vehicle size is to change
+      if (args.size) {
+        vehicleToUpdate.size = args.size;
+      }
+
+      // If vehicle status is to change
+      if (args.status) {
+        vehicleToUpdate.status = args.status;
+      }
+
+      // If vehicle year is to change
+      if (args.year) {
+        vehicleToUpdate.year = args.year;
+      }
+
+      // Add vehicle
+      await ctx.prisma.updateVehicle({
+        data: vehicleToUpdate,
+        where: {
+          id: vehicle.id
+        }
+      });
+
+      return { message: "Vehicle added succefully." };
+    } catch (e) {
+      throw Error(e.message);
+    }
+  },
+
+  /**
+   * Update a vehicle
+   *
+   * @param root root
+   * @param args arguments
+   * @param ctx context
+   *
+   * Return the success message
+   */
+  async deleteVehicle(root: any, args: IVehicleUpdate, ctx: IContext) {
+    // Check if the user is logged in
+    if (!ctx.user) {
+      throw new Error("You must be logged in.");
+    }
+
+    try {
+      const user = await ctx.prisma.user({ id: ctx.user.id });
+
+      if (!user) {
+        throw Error(`We couldn't retrieve your information. 
+        Either you are not registered or something went wrong.
+        If the latter, please try again later, else make sure you are rigistered`);
+      }
+
+      // Check if the user password is correct
+      if (user && !(await bcrypt.compare(args.password, user.password))) {
+        throw new Error("Please provide a correct user password");
+      }
+
+      // You must be an admin
+      if (!(user.role === "ADMIN")) {
+        throw Error(`Only admin are allowed to add vehicle`);
+      }
+
+      const vehicle: any = await ctx.prisma.vehicle({
+        id: args.vehicleId
+      });
+
+      if (!vehicle) {
+        throw Error(`We couldn't retrieve vehicle information. 
+        Either it does not exist or something went wrong.
+        If the latter, please try again later, else make sure vehicle exist by adding it first`);
+      }
+
+      // For now, a veh
+      await ctx.prisma.updateVehicle({
+        data: {
+          status: "DELETED"
+        },
+        where: {
+          id: vehicle.id
+        }
+      });
+
+      return { message: "Vehicle deleted succefully." };
     } catch (e) {
       throw Error(e.message);
     }

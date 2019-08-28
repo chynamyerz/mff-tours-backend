@@ -57,6 +57,7 @@ enum VehicleGroup {
 enum VehicleStatus {
   AVAILABLE
   UNAVAILABLE
+  DELETED
 }
 
 enum BookingStatus {

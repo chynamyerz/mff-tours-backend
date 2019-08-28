@@ -173,6 +173,59 @@ type Mutation {
   ): SuccessMessage!
 
   """
+  Update vehicle.
+
+  Only an admin person is allowed to update the vehicle information
+
+  parameters
+    vehicleId:
+      Vehicle id to update
+    group:
+      Vehicle group (A, B, C, D, E)
+    size:
+      Vehicle size (SMALL, MEDIUM, LARGE)
+    name:
+      Vehicle name (Toyata, BWM)
+    model:
+      Vehicle model (1 series for BMW, Polo for VW)
+    make:
+      Vehicle make (Hatchback, Sedan)
+    year:
+      Vehicle production year
+    imageURI:
+      Vehicle image uri
+    status:
+      Vehicle status (AVAILABLE, UNAVAILABLE)
+    password:
+      Password of the user who is logged in
+  """
+  updateVehicle(
+    vehicleId: ID!
+    group: String
+    size: String
+    name: String
+    model: String
+    make: String
+    year: String
+    imageURI: String
+    status: String
+    password: String!
+  ): SuccessMessage!
+
+  """
+  Delete vehicle.
+
+  Only an admin person is allowed to delete the vehicle
+
+  parameters
+    vehicleId:
+      Vehicle id to update
+    password:
+      Password of the user who is logged in
+  """
+  deleteVehicle(vehicleId: ID!, password: String!): SuccessMessage!
+
+  """
   Requesting a OTP to use when changing the forgotten password.
 
   parameters
@@ -299,6 +352,7 @@ enum VehicleGroup {
 
 enum VehicleStatus {
   AVAILABLE
+  DELETED
   UNAVAILABLE
 }
 

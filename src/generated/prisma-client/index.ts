@@ -183,7 +183,7 @@ export type Role = "ADMIN";
 
 export type BookingStatus = "BOOKED" | "CANCELLED" | "RETURNED";
 
-export type VehicleStatus = "AVAILABLE" | "UNAVAILABLE";
+export type VehicleStatus = "AVAILABLE" | "UNAVAILABLE" | "DELETED";
 
 export type BookingOrderByInput =
   | "id_ASC"

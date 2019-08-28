@@ -765,6 +765,7 @@ enum VehicleSize {
 enum VehicleStatus {
   AVAILABLE
   UNAVAILABLE
+  DELETED
 }
 
 type VehicleSubscriptionPayload {
