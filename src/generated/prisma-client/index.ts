@@ -179,22 +179,6 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type Role = "ADMIN";
-
-export type BookingStatus = "BOOKED" | "CANCELLED" | "RETURNED";
-
-export type VehicleStatus = "AVAILABLE" | "UNAVAILABLE" | "DELETED";
-
-export type BookingOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "pickupDate_ASC"
-  | "pickupDate_DESC"
-  | "returnDate_ASC"
-  | "returnDate_DESC"
-  | "status_ASC"
-  | "status_DESC";
-
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -223,6 +207,26 @@ export type UserOrderByInput =
   | "role_ASC"
   | "role_DESC";
 
+export type Role = "ADMIN";
+
+export type BookingStatus = "BOOKED" | "CANCELLED" | "RETURNED";
+
+export type Location = "RICHARDS_BAY" | "EMPANGENI";
+
+export type VehicleStatus = "AVAILABLE" | "UNAVAILABLE" | "DELETED";
+
+export type BookingOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "pickupDate_ASC"
+  | "pickupDate_DESC"
+  | "returnDate_ASC"
+  | "returnDate_DESC"
+  | "status_ASC"
+  | "status_DESC";
+
+export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+
 export type VehicleSize = "SMALL" | "MEDIUM" | "LARGE";
 
 export type VehicleGroup = "A" | "B" | "C" | "D" | "E";
@@ -245,13 +249,21 @@ export type VehicleOrderByInput =
   | "imageURI_ASC"
   | "imageURI_DESC"
   | "status_ASC"
-  | "status_DESC";
+  | "status_DESC"
+  | "location_ASC"
+  | "location_DESC";
 
-export type MutationType = "CREATED" | "UPDATED" | "DELETED";
-
-export interface UserCreateOneWithoutBookingsInput {
-  create?: Maybe<UserCreateWithoutBookingsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
+export interface VehicleCreateInput {
+  id?: Maybe<ID_Input>;
+  group: VehicleGroup;
+  size: VehicleSize;
+  name: String;
+  model: String;
+  make: String;
+  year: DateTimeInput;
+  imageURI: String;
+  status: VehicleStatus;
+  location: Location;
 }
 
 export type BookingWhereUniqueInput = AtLeastOne<{
@@ -571,6 +583,7 @@ export interface VehicleUpdateManyMutationInput {
   year?: Maybe<DateTimeInput>;
   imageURI?: Maybe<String>;
   status?: Maybe<VehicleStatus>;
+  location?: Maybe<Location>;
 }
 
 export interface VehicleCreateOneInput {
@@ -582,24 +595,6 @@ export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
 }>;
-
-export interface VehicleCreateInput {
-  id?: Maybe<ID_Input>;
-  group: VehicleGroup;
-  size: VehicleSize;
-  name: String;
-  model: String;
-  make: String;
-  year: DateTimeInput;
-  imageURI: String;
-  status: VehicleStatus;
-}
-
-export interface BookingUpdateManyDataInput {
-  pickupDate?: Maybe<DateTimeInput>;
-  returnDate?: Maybe<DateTimeInput>;
-  status?: Maybe<BookingStatus>;
-}
 
 export interface UserUpdateInput {
   email?: Maybe<String>;
@@ -615,6 +610,17 @@ export interface UserUpdateInput {
   resetTokenExpiry?: Maybe<DateTimeInput>;
   role?: Maybe<Role>;
   bookings?: Maybe<BookingUpdateManyWithoutUserInput>;
+}
+
+export interface BookingUpdateManyDataInput {
+  pickupDate?: Maybe<DateTimeInput>;
+  returnDate?: Maybe<DateTimeInput>;
+  status?: Maybe<BookingStatus>;
+}
+
+export interface UserCreateOneWithoutBookingsInput {
+  create?: Maybe<UserCreateWithoutBookingsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
 }
 
 export interface BookingScalarWhereInput {
@@ -719,6 +725,7 @@ export interface VehicleUpdateDataInput {
   year?: Maybe<DateTimeInput>;
   imageURI?: Maybe<String>;
   status?: Maybe<VehicleStatus>;
+  location?: Maybe<Location>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -827,6 +834,10 @@ export interface VehicleWhereInput {
   status_not?: Maybe<VehicleStatus>;
   status_in?: Maybe<VehicleStatus[] | VehicleStatus>;
   status_not_in?: Maybe<VehicleStatus[] | VehicleStatus>;
+  location?: Maybe<Location>;
+  location_not?: Maybe<Location>;
+  location_in?: Maybe<Location[] | Location>;
+  location_not_in?: Maybe<Location[] | Location>;
   AND?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
   OR?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
   NOT?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
@@ -883,6 +894,7 @@ export interface VehicleUpdateInput {
   year?: Maybe<DateTimeInput>;
   imageURI?: Maybe<String>;
   status?: Maybe<VehicleStatus>;
+  location?: Maybe<Location>;
 }
 
 export interface VehicleSubscriptionWhereInput {
@@ -910,6 +922,7 @@ export interface VehiclePreviousValues {
   year: DateTimeOutput;
   imageURI: String;
   status: VehicleStatus;
+  location: Location;
 }
 
 export interface VehiclePreviousValuesPromise
@@ -924,6 +937,7 @@ export interface VehiclePreviousValuesPromise
   year: () => Promise<DateTimeOutput>;
   imageURI: () => Promise<String>;
   status: () => Promise<VehicleStatus>;
+  location: () => Promise<Location>;
 }
 
 export interface VehiclePreviousValuesSubscription
@@ -938,6 +952,7 @@ export interface VehiclePreviousValuesSubscription
   year: () => Promise<AsyncIterator<DateTimeOutput>>;
   imageURI: () => Promise<AsyncIterator<String>>;
   status: () => Promise<AsyncIterator<VehicleStatus>>;
+  location: () => Promise<AsyncIterator<Location>>;
 }
 
 export interface UserConnection {
@@ -1373,6 +1388,7 @@ export interface Vehicle {
   year: DateTimeOutput;
   imageURI: String;
   status: VehicleStatus;
+  location: Location;
 }
 
 export interface VehiclePromise extends Promise<Vehicle>, Fragmentable {
@@ -1385,6 +1401,7 @@ export interface VehiclePromise extends Promise<Vehicle>, Fragmentable {
   year: () => Promise<DateTimeOutput>;
   imageURI: () => Promise<String>;
   status: () => Promise<VehicleStatus>;
+  location: () => Promise<Location>;
 }
 
 export interface VehicleSubscription
@@ -1399,6 +1416,7 @@ export interface VehicleSubscription
   year: () => Promise<AsyncIterator<DateTimeOutput>>;
   imageURI: () => Promise<AsyncIterator<String>>;
   status: () => Promise<AsyncIterator<VehicleStatus>>;
+  location: () => Promise<AsyncIterator<Location>>;
 }
 
 export interface VehicleNullablePromise
@@ -1413,6 +1431,7 @@ export interface VehicleNullablePromise
   year: () => Promise<DateTimeOutput>;
   imageURI: () => Promise<String>;
   status: () => Promise<VehicleStatus>;
+  location: () => Promise<Location>;
 }
 
 export interface VehicleEdge {
@@ -1546,6 +1565,10 @@ export const models: Model[] = [
   },
   {
     name: "BookingStatus",
+    embedded: false
+  },
+  {
+    name: "Location",
     embedded: false
   }
 ];

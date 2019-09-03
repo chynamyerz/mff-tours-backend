@@ -25,6 +25,7 @@ type Vehicle {
   year: DateTime!
   imageURI: String!
   status: VehicleStatus! @scalar
+  location: Location! @scalar
 }
 
 type Booking {
@@ -64,4 +65,9 @@ enum BookingStatus {
   BOOKED
   CANCELLED
   RETURNED
+}
+
+enum Location {
+  RICHARDS_BAY
+  EMPANGENI
 }

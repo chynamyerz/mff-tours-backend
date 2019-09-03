@@ -344,6 +344,36 @@ const Mutation = {
   },
 
   /**
+   * The search vehicles mutation
+   *
+   * @param root parent
+   * @param args arguments
+   * @param ctx context
+   *
+   * Returns the list of vehicles information
+   */
+  async searchVehicles(root: any, args: any, ctx: IContext) {
+    try {
+      if (args.location === "EMPANGENI" || args.location === "RICHARDS_BAY") {
+        return ctx.prisma.vehicles({
+          where: {
+            location_in: [args.location],
+            status: "AVAILABLE"
+          }
+        });
+      } else {
+        return ctx.prisma.vehicles({
+          where: {
+            status: "AVAILABLE"
+          }
+        });
+      }
+    } catch (e) {
+      throw Error(e.message);
+    }
+  },
+
+  /**
    * Add a new vehicle
    *
    * @param root root
@@ -379,6 +409,7 @@ const Mutation = {
       await ctx.prisma.createVehicle({
         group: args.group,
         imageURI: args.imageURI,
+        location: args.location,
         make: args.make,
         model: args.model,
         name: args.name,

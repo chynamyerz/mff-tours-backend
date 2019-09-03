@@ -4,7 +4,7 @@
   "description": "An API server for the MFF Tours",
   "main": "index.ts",
   "scripts": {
-    "deploy": "cd src/; prisma deploy --env-file ../.env",
+    "deploy": "cd src/; prisma deploy --force --env-file ../.env",
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "start": "ts-node -r dotenv/config src/index.ts",
     "test": "jest",

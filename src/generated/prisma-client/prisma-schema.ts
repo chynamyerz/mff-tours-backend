@@ -245,6 +245,11 @@ input BookingWhereUniqueInput {
 
 scalar DateTime
 
+enum Location {
+  RICHARDS_BAY
+  EMPANGENI
+}
+
 scalar Long
 
 type Mutation {
@@ -685,6 +690,7 @@ type Vehicle {
   year: DateTime!
   imageURI: String!
   status: VehicleStatus!
+  location: Location!
 }
 
 type VehicleConnection {
@@ -703,6 +709,7 @@ input VehicleCreateInput {
   year: DateTime!
   imageURI: String!
   status: VehicleStatus!
+  location: Location!
 }
 
 input VehicleCreateOneInput {
@@ -742,6 +749,8 @@ enum VehicleOrderByInput {
   imageURI_DESC
   status_ASC
   status_DESC
+  location_ASC
+  location_DESC
 }
 
 type VehiclePreviousValues {
@@ -754,6 +763,7 @@ type VehiclePreviousValues {
   year: DateTime!
   imageURI: String!
   status: VehicleStatus!
+  location: Location!
 }
 
 enum VehicleSize {
@@ -795,6 +805,7 @@ input VehicleUpdateDataInput {
   year: DateTime
   imageURI: String
   status: VehicleStatus
+  location: Location
 }
 
 input VehicleUpdateInput {
@@ -806,6 +817,7 @@ input VehicleUpdateInput {
   year: DateTime
   imageURI: String
   status: VehicleStatus
+  location: Location
 }
 
 input VehicleUpdateManyMutationInput {
@@ -817,6 +829,7 @@ input VehicleUpdateManyMutationInput {
   year: DateTime
   imageURI: String
   status: VehicleStatus
+  location: Location
 }
 
 input VehicleUpdateOneRequiredInput {
@@ -922,6 +935,10 @@ input VehicleWhereInput {
   status_not: VehicleStatus
   status_in: [VehicleStatus!]
   status_not_in: [VehicleStatus!]
+  location: Location
+  location_not: Location
+  location_in: [Location!]
+  location_not_in: [Location!]
   AND: [VehicleWhereInput!]
   OR: [VehicleWhereInput!]
   NOT: [VehicleWhereInput!]

@@ -107,6 +107,15 @@ type Mutation {
   ): SuccessMessage!
 
   """
+  Vehicle searching.
+
+  parameters
+    location:
+      Where the vehicle will be picked up
+  """
+  searchVehicles(location: String!): [Vehicle!]!
+
+  """
   Vehicle booking.
 
   An admin person is allowed to book on behalf of the client.
@@ -144,6 +153,8 @@ type Mutation {
   Only an admin person is allowed to add the new vehicle
 
   parameters
+    location:
+      Where the vehicle will be picked up
     group:
       Vehicle group (A, B, C, D, E)
     size:
@@ -170,6 +181,7 @@ type Mutation {
     year: String!
     imageURI: String!
     status: String!
+    location: String!
   ): SuccessMessage!
 
   """
@@ -180,6 +192,8 @@ type Mutation {
   parameters
     vehicleId:
       Vehicle id to update
+    location:
+      Where the vehicle will be picked up
     group:
       Vehicle group (A, B, C, D, E)
     size:
@@ -210,6 +224,7 @@ type Mutation {
     imageURI: String
     status: String
     password: String!
+    location: String
   ): SuccessMessage!
 
   """
@@ -323,6 +338,7 @@ type Vehicle {
   year: String!
   imageURI: String!
   status: VehicleStatus!
+  location: Location!
 }
 
 """
@@ -360,4 +376,9 @@ enum BookingStatus {
   BOOKED
   CANCELLED
   RETURNED
+}
+
+enum Location {
+  RICHARDS_BAY
+  EMPANGENI
 }
