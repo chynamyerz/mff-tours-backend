@@ -112,8 +112,14 @@ type Mutation {
   parameters
     location:
       Where the vehicle will be picked up
+    pickupDate:
+      A pick up date
   """
-  searchVehicles(location: String!): [Vehicle!]!
+  searchVehicles(
+    location: String!
+    pickupDate: String!
+    returnDate: String!
+  ): [Vehicle!]!
 
   """
   Vehicle booking.

@@ -7,7 +7,12 @@ import {
   VehicleCreateInput,
   VehicleUpdateInput
 } from "../generated/prisma-client";
-import { transporter, validateEmail, validPassword } from "../util";
+import {
+  searchedVehiclesResults,
+  transporter,
+  validateEmail,
+  validPassword
+} from "../util";
 import { bookingFragment } from "../util/adminProperties";
 
 interface IContext {
@@ -224,7 +229,7 @@ const Mutation = {
         id: args.vehicleId
       });
 
-      if (!vehicle || vehicle.status === "UNAVAILABLE") {
+      if (!vehicle) {
         throw Error(
           "The vehicle you are trying to book is currently not available."
         );
@@ -311,7 +316,7 @@ const Mutation = {
         id: vehicleId
       });
 
-      if (!vehicle || vehicle.status === "AVAILABLE") {
+      if (!vehicle) {
         throw Error(
           "This booking vehicle no longer exists. Please contact the MFF Tours about this issue."
         );
@@ -354,19 +359,43 @@ const Mutation = {
    */
   async searchVehicles(root: any, args: any, ctx: IContext) {
     try {
+      const bookedVehicles: any = await ctx.prisma
+        .bookings({
+          where: {
+            AND: {
+              AND: [
+                {
+                  pickupDate_lte: moment(args.pickupDate).format("YYYY-MM-DD")
+                },
+                {
+                  returnDate_gte: moment(args.pickupDate).format("YYYY-MM-DD")
+                },
+                {
+                  pickupDate_lte: moment(args.returnDate).format("YYYY-MM-DD")
+                },
+                { returnDate_gte: moment(args.returnDate).format("YYYY-MM-DD") }
+              ]
+            }
+          }
+        })
+        .$fragment(bookingFragment);
+
       if (args.location === "EMPANGENI" || args.location === "RICHARDS_BAY") {
-        return ctx.prisma.vehicles({
+        const searchedVehicles = await ctx.prisma.vehicles({
           where: {
-            location_in: [args.location],
-            status: "AVAILABLE"
+            location_in: [args.location]
           }
         });
+
+        return bookedVehicles.length
+          ? searchedVehiclesResults(bookedVehicles, searchedVehicles)
+          : searchedVehicles;
       } else {
-        return ctx.prisma.vehicles({
-          where: {
-            status: "AVAILABLE"
-          }
-        });
+        const searchedVehicles = await ctx.prisma.vehicles();
+
+        return bookedVehicles.length
+          ? searchedVehiclesResults(bookedVehicles, searchedVehicles)
+          : searchedVehicles;
       }
     } catch (e) {
       throw Error(e.message);

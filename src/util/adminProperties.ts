@@ -21,6 +21,7 @@ const vehicleProperties = `
   year
   imageURI
   status
+  location
 `;
 
 const bookingProperties = `

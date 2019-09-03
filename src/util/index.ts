@@ -34,3 +34,13 @@ export const validateEmail = (email: string) =>
 
 // Check if the password length consist of at least 5 characters
 export const validPassword = (password: string) => password.length >= 5;
+
+// Check if the searched vehicle is not booked.
+export const searchedVehiclesResults = (
+  bookedVehicles: any,
+  searchedVehicles: any
+) =>
+  searchedVehicles.filter(
+    (v: any) =>
+      bookedVehicles.filter((b: any) => !(b.vehicle.id === v.id)).length > 0
+  );
