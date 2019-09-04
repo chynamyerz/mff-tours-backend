@@ -220,46 +220,85 @@ const Mutation = {
           Either the user is not added to the database or something went wrong.
           If the latter, please try again later, else make sure you add the user first`);
         }
-      }
 
-      // Check if the vehicle is available
-      const vehicle: any = await ctx.prisma.vehicle({
-        id: args.vehicleId
-      });
+        // Check if the vehicle is available
+        const vehicle: any = await ctx.prisma.vehicle({
+          id: args.vehicleId
+        });
 
-      if (!vehicle) {
-        throw Error(
-          "The vehicle you are trying to book is currently not available."
-        );
-      }
-
-      // Update the status of the vehicle to book
-      await ctx.prisma.updateVehicle({
-        data: {
-          status: "UNAVAILABLE"
-        },
-        where: {
-          id: vehicle.id
+        if (!vehicle) {
+          throw Error(
+            "The vehicle you are trying to book is currently not available."
+          );
         }
-      });
 
-      await ctx.prisma.createBooking({
-        pickupDate: args.pickupDate,
-        returnDate: args.returnDate,
-        status: "BOOKED",
-        user: {
-          connect: {
-            id: userToBookFor ? userToBookFor.id : user.id
-          }
-        },
-        vehicle: {
-          connect: {
+        // Update the status of the vehicle to book
+        await ctx.prisma.updateVehicle({
+          data: {
+            status: "UNAVAILABLE"
+          },
+          where: {
             id: vehicle.id
           }
-        }
-      });
+        });
 
-      return { message: "Booked successfully" };
+        await ctx.prisma.createBooking({
+          pickupDate: args.pickupDate,
+          returnDate: args.returnDate,
+          status: "BOOKED",
+          user: {
+            connect: {
+              id: userToBookFor.id
+            }
+          },
+          vehicle: {
+            connect: {
+              id: vehicle.id
+            }
+          }
+        });
+
+        return { message: "Booked successfully" };
+      } else {
+        // Check if the vehicle is available
+        const vehicle: any = await ctx.prisma.vehicle({
+          id: args.vehicleId
+        });
+
+        if (!vehicle) {
+          throw Error(
+            "The vehicle you are trying to book is currently not available."
+          );
+        }
+
+        // Update the status of the vehicle to book
+        await ctx.prisma.updateVehicle({
+          data: {
+            status: "UNAVAILABLE"
+          },
+          where: {
+            id: vehicle.id
+          }
+        });
+
+        await ctx.prisma.createBooking({
+          pickupDate: args.pickupDate,
+          returnDate: args.returnDate,
+          status: "BOOKED",
+          user: {
+            connect: {
+              id: user.id
+            }
+          },
+          vehicle: {
+            connect: {
+              id: vehicle.id
+            }
+          }
+        });
+
+        return { message: "Booked successfully" };
+      }
     } catch (e) {
       throw Error(e.message);
     }
