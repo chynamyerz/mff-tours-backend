@@ -191,28 +191,26 @@ const Mutation = {
    * Return a success message
    */
   async bookVehicle(root: any, args: any, ctx: IContext) {
-    // Check if the user is logged in
-    if (!ctx.user) {
-      throw new Error("You must be logged in.");
-    }
-
     try {
       // currently logged in user
-      const user = await ctx.prisma.user({
-        id: ctx.user.id
-      });
+      const user = ctx.user
+        ? await ctx.prisma.user({
+            id: ctx.user.id
+          })
+        : await ctx.prisma.user({
+            email: args.email
+          });
 
       if (!user) {
-        throw Error(`We couldn't retrieve your information. 
-        Either you are not registered or something went wrong.
-        If the latter, please try again later, else make sure you are rigistered`);
+        throw Error(`We couldn't retrieve user information.
+        Please make sure user information has been provided prior to booking.`);
       }
 
       let userToBookFor = null;
 
       // Booking on behalf of the client
-      if (args.email && user.role === "ADMIN") {
-        // currently logged in user
+      if (user && user.role === "ADMIN") {
+        // client
         userToBookFor = await ctx.prisma.user({
           email: args.email
         });

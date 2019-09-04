@@ -40,7 +40,10 @@ export const searchedVehiclesResults = (
   bookedVehicles: any,
   searchedVehicles: any
 ) =>
-  searchedVehicles.filter(
-    (v: any) =>
-      bookedVehicles.filter((b: any) => !(b.vehicle.id === v.id)).length > 0
-  );
+  searchedVehicles.filter((v: any) => {
+    const vehicleIds = bookedVehicles.map((b: any) => {
+      return b.vehicle.id;
+    });
+
+    return !vehicleIds.includes(v.id);
+  });
