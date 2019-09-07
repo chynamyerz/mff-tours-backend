@@ -1,3 +1,5 @@
+// tslint:disable-next-line:no-var-requires
+require("now-env");
 import bcrypt from "bcrypt";
 import moment from "moment";
 import {
