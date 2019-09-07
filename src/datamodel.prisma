@@ -26,6 +26,7 @@ type Vehicle {
   imageURI: String!
   status: VehicleStatus! @scalar
   location: Location! @scalar
+  count: Int!
 }
 
 type Booking {

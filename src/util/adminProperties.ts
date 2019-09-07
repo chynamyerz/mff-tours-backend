@@ -13,6 +13,7 @@ const userProperties = `
 
 const vehicleProperties = `
   id
+  count
   group
   size
   name

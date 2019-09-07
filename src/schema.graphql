@@ -179,6 +179,7 @@ type Mutation {
       Vehicle status (AVAILABLE, UNAVAILABLE)
   """
   addVehicle(
+    count: Int!
     group: String!
     size: String!
     name: String!
@@ -221,6 +222,7 @@ type Mutation {
   """
   updateVehicle(
     vehicleId: ID!
+    count: Int
     group: String
     size: String
     name: String
@@ -336,6 +338,7 @@ The vehicle type
 """
 type Vehicle {
   id: ID!
+  count: Int!
   group: VehicleGroup!
   size: VehicleSize!
   name: String!

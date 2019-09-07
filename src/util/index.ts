@@ -45,5 +45,5 @@ export const searchedVehiclesResults = (
       return b.vehicle.id;
     });
 
-    return !vehicleIds.includes(v.id);
+    return v.count >= 1 || !vehicleIds.includes(v.id);
   });

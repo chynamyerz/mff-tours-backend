@@ -251,7 +251,9 @@ export type VehicleOrderByInput =
   | "status_ASC"
   | "status_DESC"
   | "location_ASC"
-  | "location_DESC";
+  | "location_DESC"
+  | "count_ASC"
+  | "count_DESC";
 
 export interface VehicleCreateInput {
   id?: Maybe<ID_Input>;
@@ -264,64 +266,80 @@ export interface VehicleCreateInput {
   imageURI: String;
   status: VehicleStatus;
   location: Location;
+  count: Int;
 }
 
 export type BookingWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
+export interface BookingUpdateManyWithoutUserInput {
+  create?: Maybe<
+    BookingCreateWithoutUserInput[] | BookingCreateWithoutUserInput
+  >;
+  delete?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
+  connect?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
+  set?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
+  disconnect?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
+  update?: Maybe<
+    | BookingUpdateWithWhereUniqueWithoutUserInput[]
+    | BookingUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | BookingUpsertWithWhereUniqueWithoutUserInput[]
+    | BookingUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<BookingScalarWhereInput[] | BookingScalarWhereInput>;
+  updateMany?: Maybe<
+    | BookingUpdateManyWithWhereNestedInput[]
+    | BookingUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  email: String;
+  name: String;
+  surname: String;
+  contact: String;
+  address?: Maybe<String>;
+  city: String;
+  state: String;
+  zip: String;
+  password: String;
+  oneTimePin?: Maybe<String>;
+  resetTokenExpiry?: Maybe<DateTimeInput>;
+  role?: Maybe<Role>;
+  bookings?: Maybe<BookingCreateManyWithoutUserInput>;
+}
+
+export interface UserUpdateInput {
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+  surname?: Maybe<String>;
+  contact?: Maybe<String>;
+  address?: Maybe<String>;
+  city?: Maybe<String>;
+  state?: Maybe<String>;
+  zip?: Maybe<String>;
+  password?: Maybe<String>;
+  oneTimePin?: Maybe<String>;
+  resetTokenExpiry?: Maybe<DateTimeInput>;
+  role?: Maybe<Role>;
+  bookings?: Maybe<BookingUpdateManyWithoutUserInput>;
+}
+
 export interface VehicleUpsertNestedInput {
   update: VehicleUpdateDataInput;
   create: VehicleCreateInput;
 }
 
-export interface BookingWhereInput {
+export interface BookingCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  vehicle?: Maybe<VehicleWhereInput>;
-  user?: Maybe<UserWhereInput>;
-  pickupDate?: Maybe<DateTimeInput>;
-  pickupDate_not?: Maybe<DateTimeInput>;
-  pickupDate_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  pickupDate_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  pickupDate_lt?: Maybe<DateTimeInput>;
-  pickupDate_lte?: Maybe<DateTimeInput>;
-  pickupDate_gt?: Maybe<DateTimeInput>;
-  pickupDate_gte?: Maybe<DateTimeInput>;
-  returnDate?: Maybe<DateTimeInput>;
-  returnDate_not?: Maybe<DateTimeInput>;
-  returnDate_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  returnDate_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  returnDate_lt?: Maybe<DateTimeInput>;
-  returnDate_lte?: Maybe<DateTimeInput>;
-  returnDate_gt?: Maybe<DateTimeInput>;
-  returnDate_gte?: Maybe<DateTimeInput>;
-  status?: Maybe<BookingStatus>;
-  status_not?: Maybe<BookingStatus>;
-  status_in?: Maybe<BookingStatus[] | BookingStatus>;
-  status_not_in?: Maybe<BookingStatus[] | BookingStatus>;
-  AND?: Maybe<BookingWhereInput[] | BookingWhereInput>;
-  OR?: Maybe<BookingWhereInput[] | BookingWhereInput>;
-  NOT?: Maybe<BookingWhereInput[] | BookingWhereInput>;
-}
-
-export interface UserUpdateOneRequiredWithoutBookingsInput {
-  create?: Maybe<UserCreateWithoutBookingsInput>;
-  update?: Maybe<UserUpdateWithoutBookingsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutBookingsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
+  vehicle: VehicleCreateOneInput;
+  pickupDate: DateTimeInput;
+  returnDate: DateTimeInput;
+  status: BookingStatus;
 }
 
 export interface UserWhereInput {
@@ -499,61 +517,6 @@ export interface UserWhereInput {
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
-export interface BookingUpdateManyWithoutUserInput {
-  create?: Maybe<
-    BookingCreateWithoutUserInput[] | BookingCreateWithoutUserInput
-  >;
-  delete?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
-  connect?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
-  set?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
-  disconnect?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
-  update?: Maybe<
-    | BookingUpdateWithWhereUniqueWithoutUserInput[]
-    | BookingUpdateWithWhereUniqueWithoutUserInput
-  >;
-  upsert?: Maybe<
-    | BookingUpsertWithWhereUniqueWithoutUserInput[]
-    | BookingUpsertWithWhereUniqueWithoutUserInput
-  >;
-  deleteMany?: Maybe<BookingScalarWhereInput[] | BookingScalarWhereInput>;
-  updateMany?: Maybe<
-    | BookingUpdateManyWithWhereNestedInput[]
-    | BookingUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface UserCreateInput {
-  id?: Maybe<ID_Input>;
-  email: String;
-  name: String;
-  surname: String;
-  contact: String;
-  address?: Maybe<String>;
-  city: String;
-  state: String;
-  zip: String;
-  password: String;
-  oneTimePin?: Maybe<String>;
-  resetTokenExpiry?: Maybe<DateTimeInput>;
-  role?: Maybe<Role>;
-  bookings?: Maybe<BookingCreateManyWithoutUserInput>;
-}
-
-export interface UserUpdateWithoutBookingsDataInput {
-  email?: Maybe<String>;
-  name?: Maybe<String>;
-  surname?: Maybe<String>;
-  contact?: Maybe<String>;
-  address?: Maybe<String>;
-  city?: Maybe<String>;
-  state?: Maybe<String>;
-  zip?: Maybe<String>;
-  password?: Maybe<String>;
-  oneTimePin?: Maybe<String>;
-  resetTokenExpiry?: Maybe<DateTimeInput>;
-  role?: Maybe<Role>;
-}
-
 export interface UserSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -563,15 +526,6 @@ export interface UserSubscriptionWhereInput {
   AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
   OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
   NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-}
-
-export interface BookingCreateInput {
-  id?: Maybe<ID_Input>;
-  vehicle: VehicleCreateOneInput;
-  user: UserCreateOneWithoutBookingsInput;
-  pickupDate: DateTimeInput;
-  returnDate: DateTimeInput;
-  status: BookingStatus;
 }
 
 export interface VehicleUpdateManyMutationInput {
@@ -584,19 +538,19 @@ export interface VehicleUpdateManyMutationInput {
   imageURI?: Maybe<String>;
   status?: Maybe<VehicleStatus>;
   location?: Maybe<Location>;
+  count?: Maybe<Int>;
 }
 
-export interface VehicleCreateOneInput {
-  create?: Maybe<VehicleCreateInput>;
-  connect?: Maybe<VehicleWhereUniqueInput>;
+export interface BookingCreateInput {
+  id?: Maybe<ID_Input>;
+  vehicle: VehicleCreateOneInput;
+  user: UserCreateOneWithoutBookingsInput;
+  pickupDate: DateTimeInput;
+  returnDate: DateTimeInput;
+  status: BookingStatus;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  email?: Maybe<String>;
-}>;
-
-export interface UserUpdateInput {
+export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
   surname?: Maybe<String>;
@@ -609,18 +563,23 @@ export interface UserUpdateInput {
   oneTimePin?: Maybe<String>;
   resetTokenExpiry?: Maybe<DateTimeInput>;
   role?: Maybe<Role>;
-  bookings?: Maybe<BookingUpdateManyWithoutUserInput>;
 }
 
-export interface BookingUpdateManyDataInput {
-  pickupDate?: Maybe<DateTimeInput>;
-  returnDate?: Maybe<DateTimeInput>;
-  status?: Maybe<BookingStatus>;
+export interface VehicleCreateOneInput {
+  create?: Maybe<VehicleCreateInput>;
+  connect?: Maybe<VehicleWhereUniqueInput>;
 }
 
-export interface UserCreateOneWithoutBookingsInput {
-  create?: Maybe<UserCreateWithoutBookingsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  email?: Maybe<String>;
+}>;
+
+export interface BookingCreateManyWithoutUserInput {
+  create?: Maybe<
+    BookingCreateWithoutUserInput[] | BookingCreateWithoutUserInput
+  >;
+  connect?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
 }
 
 export interface BookingScalarWhereInput {
@@ -663,6 +622,18 @@ export interface BookingScalarWhereInput {
   NOT?: Maybe<BookingScalarWhereInput[] | BookingScalarWhereInput>;
 }
 
+export interface UserCreateOneWithoutBookingsInput {
+  create?: Maybe<UserCreateWithoutBookingsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface BookingUpdateWithoutUserDataInput {
+  vehicle?: Maybe<VehicleUpdateOneRequiredInput>;
+  pickupDate?: Maybe<DateTimeInput>;
+  returnDate?: Maybe<DateTimeInput>;
+  status?: Maybe<BookingStatus>;
+}
+
 export interface UserCreateWithoutBookingsInput {
   id?: Maybe<ID_Input>;
   email: String;
@@ -679,10 +650,9 @@ export interface UserCreateWithoutBookingsInput {
   role?: Maybe<Role>;
 }
 
-export interface BookingUpsertWithWhereUniqueWithoutUserInput {
+export interface BookingUpdateWithWhereUniqueWithoutUserInput {
   where: BookingWhereUniqueInput;
-  update: BookingUpdateWithoutUserDataInput;
-  create: BookingCreateWithoutUserInput;
+  data: BookingUpdateWithoutUserDataInput;
 }
 
 export interface BookingUpdateInput {
@@ -693,9 +663,15 @@ export interface BookingUpdateInput {
   status?: Maybe<BookingStatus>;
 }
 
-export interface BookingUpdateWithWhereUniqueWithoutUserInput {
-  where: BookingWhereUniqueInput;
-  data: BookingUpdateWithoutUserDataInput;
+export interface VehicleSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<VehicleWhereInput>;
+  AND?: Maybe<VehicleSubscriptionWhereInput[] | VehicleSubscriptionWhereInput>;
+  OR?: Maybe<VehicleSubscriptionWhereInput[] | VehicleSubscriptionWhereInput>;
+  NOT?: Maybe<VehicleSubscriptionWhereInput[] | VehicleSubscriptionWhereInput>;
 }
 
 export interface VehicleUpdateOneRequiredInput {
@@ -705,15 +681,17 @@ export interface VehicleUpdateOneRequiredInput {
   connect?: Maybe<VehicleWhereUniqueInput>;
 }
 
-export interface BookingSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<BookingWhereInput>;
-  AND?: Maybe<BookingSubscriptionWhereInput[] | BookingSubscriptionWhereInput>;
-  OR?: Maybe<BookingSubscriptionWhereInput[] | BookingSubscriptionWhereInput>;
-  NOT?: Maybe<BookingSubscriptionWhereInput[] | BookingSubscriptionWhereInput>;
+export interface VehicleUpdateInput {
+  group?: Maybe<VehicleGroup>;
+  size?: Maybe<VehicleSize>;
+  name?: Maybe<String>;
+  model?: Maybe<String>;
+  make?: Maybe<String>;
+  year?: Maybe<DateTimeInput>;
+  imageURI?: Maybe<String>;
+  status?: Maybe<VehicleStatus>;
+  location?: Maybe<Location>;
+  count?: Maybe<Int>;
 }
 
 export interface VehicleUpdateDataInput {
@@ -726,9 +704,72 @@ export interface VehicleUpdateDataInput {
   imageURI?: Maybe<String>;
   status?: Maybe<VehicleStatus>;
   location?: Maybe<Location>;
+  count?: Maybe<Int>;
 }
 
-export interface UserUpdateManyMutationInput {
+export interface BookingUpdateManyWithWhereNestedInput {
+  where: BookingScalarWhereInput;
+  data: BookingUpdateManyDataInput;
+}
+
+export interface BookingWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  vehicle?: Maybe<VehicleWhereInput>;
+  user?: Maybe<UserWhereInput>;
+  pickupDate?: Maybe<DateTimeInput>;
+  pickupDate_not?: Maybe<DateTimeInput>;
+  pickupDate_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  pickupDate_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  pickupDate_lt?: Maybe<DateTimeInput>;
+  pickupDate_lte?: Maybe<DateTimeInput>;
+  pickupDate_gt?: Maybe<DateTimeInput>;
+  pickupDate_gte?: Maybe<DateTimeInput>;
+  returnDate?: Maybe<DateTimeInput>;
+  returnDate_not?: Maybe<DateTimeInput>;
+  returnDate_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  returnDate_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  returnDate_lt?: Maybe<DateTimeInput>;
+  returnDate_lte?: Maybe<DateTimeInput>;
+  returnDate_gt?: Maybe<DateTimeInput>;
+  returnDate_gte?: Maybe<DateTimeInput>;
+  status?: Maybe<BookingStatus>;
+  status_not?: Maybe<BookingStatus>;
+  status_in?: Maybe<BookingStatus[] | BookingStatus>;
+  status_not_in?: Maybe<BookingStatus[] | BookingStatus>;
+  AND?: Maybe<BookingWhereInput[] | BookingWhereInput>;
+  OR?: Maybe<BookingWhereInput[] | BookingWhereInput>;
+  NOT?: Maybe<BookingWhereInput[] | BookingWhereInput>;
+}
+
+export type VehicleWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface BookingUpdateManyMutationInput {
+  pickupDate?: Maybe<DateTimeInput>;
+  returnDate?: Maybe<DateTimeInput>;
+  status?: Maybe<BookingStatus>;
+}
+
+export interface UserUpsertWithoutBookingsInput {
+  update: UserUpdateWithoutBookingsDataInput;
+  create: UserCreateWithoutBookingsInput;
+}
+
+export interface UserUpdateWithoutBookingsDataInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
   surname?: Maybe<String>;
@@ -741,6 +782,13 @@ export interface UserUpdateManyMutationInput {
   oneTimePin?: Maybe<String>;
   resetTokenExpiry?: Maybe<DateTimeInput>;
   role?: Maybe<Role>;
+}
+
+export interface UserUpdateOneRequiredWithoutBookingsInput {
+  create?: Maybe<UserCreateWithoutBookingsInput>;
+  update?: Maybe<UserUpdateWithoutBookingsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutBookingsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
 }
 
 export interface VehicleWhereInput {
@@ -838,74 +886,40 @@ export interface VehicleWhereInput {
   location_not?: Maybe<Location>;
   location_in?: Maybe<Location[] | Location>;
   location_not_in?: Maybe<Location[] | Location>;
+  count?: Maybe<Int>;
+  count_not?: Maybe<Int>;
+  count_in?: Maybe<Int[] | Int>;
+  count_not_in?: Maybe<Int[] | Int>;
+  count_lt?: Maybe<Int>;
+  count_lte?: Maybe<Int>;
+  count_gt?: Maybe<Int>;
+  count_gte?: Maybe<Int>;
   AND?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
   OR?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
   NOT?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
 }
 
-export type VehicleWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
+export interface BookingUpsertWithWhereUniqueWithoutUserInput {
+  where: BookingWhereUniqueInput;
+  update: BookingUpdateWithoutUserDataInput;
+  create: BookingCreateWithoutUserInput;
+}
 
-export interface BookingUpdateManyMutationInput {
+export interface BookingUpdateManyDataInput {
   pickupDate?: Maybe<DateTimeInput>;
   returnDate?: Maybe<DateTimeInput>;
   status?: Maybe<BookingStatus>;
 }
 
-export interface UserUpsertWithoutBookingsInput {
-  update: UserUpdateWithoutBookingsDataInput;
-  create: UserCreateWithoutBookingsInput;
-}
-
-export interface BookingCreateManyWithoutUserInput {
-  create?: Maybe<
-    BookingCreateWithoutUserInput[] | BookingCreateWithoutUserInput
-  >;
-  connect?: Maybe<BookingWhereUniqueInput[] | BookingWhereUniqueInput>;
-}
-
-export interface BookingCreateWithoutUserInput {
-  id?: Maybe<ID_Input>;
-  vehicle: VehicleCreateOneInput;
-  pickupDate: DateTimeInput;
-  returnDate: DateTimeInput;
-  status: BookingStatus;
-}
-
-export interface BookingUpdateWithoutUserDataInput {
-  vehicle?: Maybe<VehicleUpdateOneRequiredInput>;
-  pickupDate?: Maybe<DateTimeInput>;
-  returnDate?: Maybe<DateTimeInput>;
-  status?: Maybe<BookingStatus>;
-}
-
-export interface BookingUpdateManyWithWhereNestedInput {
-  where: BookingScalarWhereInput;
-  data: BookingUpdateManyDataInput;
-}
-
-export interface VehicleUpdateInput {
-  group?: Maybe<VehicleGroup>;
-  size?: Maybe<VehicleSize>;
-  name?: Maybe<String>;
-  model?: Maybe<String>;
-  make?: Maybe<String>;
-  year?: Maybe<DateTimeInput>;
-  imageURI?: Maybe<String>;
-  status?: Maybe<VehicleStatus>;
-  location?: Maybe<Location>;
-}
-
-export interface VehicleSubscriptionWhereInput {
+export interface BookingSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<VehicleWhereInput>;
-  AND?: Maybe<VehicleSubscriptionWhereInput[] | VehicleSubscriptionWhereInput>;
-  OR?: Maybe<VehicleSubscriptionWhereInput[] | VehicleSubscriptionWhereInput>;
-  NOT?: Maybe<VehicleSubscriptionWhereInput[] | VehicleSubscriptionWhereInput>;
+  node?: Maybe<BookingWhereInput>;
+  AND?: Maybe<BookingSubscriptionWhereInput[] | BookingSubscriptionWhereInput>;
+  OR?: Maybe<BookingSubscriptionWhereInput[] | BookingSubscriptionWhereInput>;
+  NOT?: Maybe<BookingSubscriptionWhereInput[] | BookingSubscriptionWhereInput>;
 }
 
 export interface NodeNode {
@@ -923,6 +937,7 @@ export interface VehiclePreviousValues {
   imageURI: String;
   status: VehicleStatus;
   location: Location;
+  count: Int;
 }
 
 export interface VehiclePreviousValuesPromise
@@ -938,6 +953,7 @@ export interface VehiclePreviousValuesPromise
   imageURI: () => Promise<String>;
   status: () => Promise<VehicleStatus>;
   location: () => Promise<Location>;
+  count: () => Promise<Int>;
 }
 
 export interface VehiclePreviousValuesSubscription
@@ -953,68 +969,24 @@ export interface VehiclePreviousValuesSubscription
   imageURI: () => Promise<AsyncIterator<String>>;
   status: () => Promise<AsyncIterator<VehicleStatus>>;
   location: () => Promise<AsyncIterator<Location>>;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
+export interface BookingEdge {
+  node: Booking;
+  cursor: String;
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface BookingEdgePromise extends Promise<BookingEdge>, Fragmentable {
+  node: <T = BookingPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface BookingEdgeSubscription
+  extends Promise<AsyncIterator<BookingEdge>>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
+  node: <T = BookingSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface User {
@@ -1112,20 +1084,45 @@ export interface UserNullablePromise
   }) => T;
 }
 
-export interface AggregateBooking {
-  count: Int;
+export interface BatchPayload {
+  count: Long;
 }
 
-export interface AggregateBookingPromise
-  extends Promise<AggregateBooking>,
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
     Fragmentable {
-  count: () => Promise<Int>;
+  count: () => Promise<Long>;
 }
 
-export interface AggregateBookingSubscription
-  extends Promise<AsyncIterator<AggregateBooking>>,
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
 export interface AggregateVehicle {
@@ -1142,23 +1139,6 @@ export interface AggregateVehicleSubscription
   extends Promise<AsyncIterator<AggregateVehicle>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface BookingEdge {
-  node: Booking;
-  cursor: String;
-}
-
-export interface BookingEdgePromise extends Promise<BookingEdge>, Fragmentable {
-  node: <T = BookingPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface BookingEdgeSubscription
-  extends Promise<AsyncIterator<BookingEdge>>,
-    Fragmentable {
-  node: <T = BookingSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface VehicleConnection {
@@ -1180,6 +1160,87 @@ export interface VehicleConnectionSubscription
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<VehicleEdgeSubscription>>>() => T;
   aggregate: <T = AggregateVehicleSubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface BookingConnection {
+  pageInfo: PageInfo;
+  edges: BookingEdge[];
+}
+
+export interface BookingConnectionPromise
+  extends Promise<BookingConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<BookingEdge>>() => T;
+  aggregate: <T = AggregateBookingPromise>() => T;
+}
+
+export interface BookingConnectionSubscription
+  extends Promise<AsyncIterator<BookingConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<BookingEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateBookingSubscription>() => T;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 export interface UserPreviousValues {
@@ -1232,45 +1293,6 @@ export interface UserPreviousValuesSubscription
   oneTimePin: () => Promise<AsyncIterator<String>>;
   resetTokenExpiry: () => Promise<AsyncIterator<DateTimeOutput>>;
   role: () => Promise<AsyncIterator<Role>>;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BookingPreviousValues {
@@ -1361,6 +1383,31 @@ export interface BookingNullablePromise
   status: () => Promise<BookingStatus>;
 }
 
+export interface VehicleSubscriptionPayload {
+  mutation: MutationType;
+  node: Vehicle;
+  updatedFields: String[];
+  previousValues: VehiclePreviousValues;
+}
+
+export interface VehicleSubscriptionPayloadPromise
+  extends Promise<VehicleSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = VehiclePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = VehiclePreviousValuesPromise>() => T;
+}
+
+export interface VehicleSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<VehicleSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = VehicleSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = VehiclePreviousValuesSubscription>() => T;
+}
+
 export interface UserEdge {
   node: User;
   cursor: String;
@@ -1389,6 +1436,7 @@ export interface Vehicle {
   imageURI: String;
   status: VehicleStatus;
   location: Location;
+  count: Int;
 }
 
 export interface VehiclePromise extends Promise<Vehicle>, Fragmentable {
@@ -1402,6 +1450,7 @@ export interface VehiclePromise extends Promise<Vehicle>, Fragmentable {
   imageURI: () => Promise<String>;
   status: () => Promise<VehicleStatus>;
   location: () => Promise<Location>;
+  count: () => Promise<Int>;
 }
 
 export interface VehicleSubscription
@@ -1417,6 +1466,7 @@ export interface VehicleSubscription
   imageURI: () => Promise<AsyncIterator<String>>;
   status: () => Promise<AsyncIterator<VehicleStatus>>;
   location: () => Promise<AsyncIterator<Location>>;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface VehicleNullablePromise
@@ -1432,6 +1482,7 @@ export interface VehicleNullablePromise
   imageURI: () => Promise<String>;
   status: () => Promise<VehicleStatus>;
   location: () => Promise<Location>;
+  count: () => Promise<Int>;
 }
 
 export interface VehicleEdge {
@@ -1451,56 +1502,44 @@ export interface VehicleEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface BookingConnection {
-  pageInfo: PageInfo;
-  edges: BookingEdge[];
+export interface AggregateBooking {
+  count: Int;
 }
 
-export interface BookingConnectionPromise
-  extends Promise<BookingConnection>,
+export interface AggregateBookingPromise
+  extends Promise<AggregateBooking>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<BookingEdge>>() => T;
-  aggregate: <T = AggregateBookingPromise>() => T;
+  count: () => Promise<Int>;
 }
 
-export interface BookingConnectionSubscription
-  extends Promise<AsyncIterator<BookingConnection>>,
+export interface AggregateBookingSubscription
+  extends Promise<AsyncIterator<AggregateBooking>>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<BookingEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateBookingSubscription>() => T;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface VehicleSubscriptionPayload {
-  mutation: MutationType;
-  node: Vehicle;
-  updatedFields: String[];
-  previousValues: VehiclePreviousValues;
-}
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
-export interface VehicleSubscriptionPayloadPromise
-  extends Promise<VehicleSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = VehiclePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = VehiclePreviousValuesPromise>() => T;
-}
+export type Long = string;
 
-export interface VehicleSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<VehicleSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = VehicleSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = VehiclePreviousValuesSubscription>() => T;
-}
+/*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number;
+export type ID_Output = string;
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+*/
+export type Int = number;
 
 /*
 DateTime scalar input type, allowing Date
@@ -1511,24 +1550,6 @@ export type DateTimeInput = Date | string;
 DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
-
-export type Long = string;
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
-*/
-export type Int = number;
-
-/*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number;
-export type ID_Output = string;
-
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
 
 /**
  * Model Metadata

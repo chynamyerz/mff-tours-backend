@@ -232,10 +232,10 @@ const Mutation = {
           );
         }
 
-        // Update the status of the vehicle to book
+        // Update the vehicle count
         await ctx.prisma.updateVehicle({
           data: {
-            status: "UNAVAILABLE"
+            count: vehicle.count - 1
           },
           where: {
             id: vehicle.id
@@ -258,6 +258,40 @@ const Mutation = {
           }
         });
 
+        const userContentEmail = `
+          Dear ${user.name} <br /><br />
+          You recently booked for a vehicle rental with MFF Car Rentals.<br />
+          This email serves to confirm that your booking was successful and the MFF Car Rentals is aware of it.<br /><br />
+          Booking information can be viewed on the website under Bookings. <strong>(You must be logged in to view them)</strong><br />
+          In the future, follow this link for terms and conditions:<a href="${process.env.MMF_FRONTEND_HOST}/termsandconditions">
+          MFF Car Rentals Terms and Conditions</a><br /><br />
+          Thank you<br /><br />
+          MFF Car Rentals`;
+
+        const adminContentEmail = `
+          Dear MFF Car Rentals <br /><br />
+          This email servers as an alert concerning a recent booking that has just been made by ${user.name}<br /><br />
+          Please navigate to the Bookings screen in the web to see the details.
+        `;
+
+        const userEmail = {
+          from: "mffcars@gmail.com",
+          html: userContentEmail,
+          subject: "MFF Car Rentals vehicle booking confirmation.",
+          to: user.email
+        };
+
+        await transporter.sendMail(userEmail);
+
+        const admintEmail = {
+          from: "mffcars@gmail.com",
+          html: adminContentEmail,
+          subject: "MFF Car Rentals vehicle booking confirmation.",
+          to: "mffcars@gmail.com"
+        };
+
+        await transporter.sendMail(admintEmail);
+
         return { message: "Booked successfully" };
       } else {
         // Check if the vehicle is available
@@ -271,10 +305,10 @@ const Mutation = {
           );
         }
 
-        // Update the status of the vehicle to book
+        // Update the vehicle count
         await ctx.prisma.updateVehicle({
           data: {
-            status: "UNAVAILABLE"
+            count: vehicle.count - 1
           },
           where: {
             id: vehicle.id
@@ -296,6 +330,38 @@ const Mutation = {
             }
           }
         });
+
+        const userContentEmail = `
+          Dear ${user.name} <br /><br />
+          You recently booked for a vehicle rental with MFF Car Rentals.<br />
+          This email serves to confirm that your booking was successful and the MFF Car Rentals is aware of it.<br /><br />
+          Booking information can be viewed on the website under Bookings. <strong>(You must be logged in to view them)</strong><br /><br />
+          Thank you<br /><br />
+          Your one and only Soso the fucking barber`;
+
+        const adminContentEmail = `
+          Dear MFF Car Rentals <br /><br />
+          This email servers as an alert concerning a recent booking that has just been made by ${user.name}<br /><br />
+          Please navigate to the Bookings screen in the web to see the details.
+        `;
+
+        const userEmail = {
+          from: "mffcars@gmail.com",
+          html: userContentEmail,
+          subject: "MFF Car Rentals vehicle booking confirmation.",
+          to: user.email
+        };
+
+        await transporter.sendMail(userEmail);
+
+        const admintEmail = {
+          from: "mffcars@gmail.com",
+          html: adminContentEmail,
+          subject: "MFF Car Rentals vehicle booking confirmation.",
+          to: "mffcars@gmail.com"
+        };
+
+        await transporter.sendMail(admintEmail);
 
         return { message: "Booked successfully" };
       }
@@ -369,10 +435,10 @@ const Mutation = {
         }
       });
 
-      // Update the slot to be avtive
+      // Update the vehicle count
       await ctx.prisma.updateVehicle({
         data: {
-          status: "AVAILABLE"
+          count: vehicle.count + 1
         },
         where: {
           id: vehicleId
@@ -420,6 +486,7 @@ const Mutation = {
       if (args.location === "EMPANGENI" || args.location === "RICHARDS_BAY") {
         const searchedVehicles = await ctx.prisma.vehicles({
           where: {
+            count_gte: 1,
             location_in: [args.location]
           }
         });
@@ -428,7 +495,11 @@ const Mutation = {
           ? searchedVehiclesResults(bookedVehicles, searchedVehicles)
           : searchedVehicles;
       } else {
-        const searchedVehicles = await ctx.prisma.vehicles();
+        const searchedVehicles = await ctx.prisma.vehicles({
+          where: {
+            count_gte: 1
+          }
+        });
 
         return bookedVehicles.length
           ? searchedVehiclesResults(bookedVehicles, searchedVehicles)
@@ -473,6 +544,7 @@ const Mutation = {
 
       // Add vehicle
       await ctx.prisma.createVehicle({
+        count: args.count,
         group: args.group,
         imageURI: args.imageURI,
         location: args.location,
@@ -536,6 +608,11 @@ const Mutation = {
 
       // An object holding arguments to update
       const vehicleToUpdate: VehicleUpdateInput = {};
+
+      // If vehicle count is to change
+      if (args.count) {
+        vehicleToUpdate.count = args.count;
+      }
 
       // If vehicle group is to change
       if (args.group) {

@@ -691,6 +691,7 @@ type Vehicle {
   imageURI: String!
   status: VehicleStatus!
   location: Location!
+  count: Int!
 }
 
 type VehicleConnection {
@@ -710,6 +711,7 @@ input VehicleCreateInput {
   imageURI: String!
   status: VehicleStatus!
   location: Location!
+  count: Int!
 }
 
 input VehicleCreateOneInput {
@@ -751,6 +753,8 @@ enum VehicleOrderByInput {
   status_DESC
   location_ASC
   location_DESC
+  count_ASC
+  count_DESC
 }
 
 type VehiclePreviousValues {
@@ -764,6 +768,7 @@ type VehiclePreviousValues {
   imageURI: String!
   status: VehicleStatus!
   location: Location!
+  count: Int!
 }
 
 enum VehicleSize {
@@ -806,6 +811,7 @@ input VehicleUpdateDataInput {
   imageURI: String
   status: VehicleStatus
   location: Location
+  count: Int
 }
 
 input VehicleUpdateInput {
@@ -818,6 +824,7 @@ input VehicleUpdateInput {
   imageURI: String
   status: VehicleStatus
   location: Location
+  count: Int
 }
 
 input VehicleUpdateManyMutationInput {
@@ -830,6 +837,7 @@ input VehicleUpdateManyMutationInput {
   imageURI: String
   status: VehicleStatus
   location: Location
+  count: Int
 }
 
 input VehicleUpdateOneRequiredInput {
@@ -939,6 +947,14 @@ input VehicleWhereInput {
   location_not: Location
   location_in: [Location!]
   location_not_in: [Location!]
+  count: Int
+  count_not: Int
+  count_in: [Int!]
+  count_not_in: [Int!]
+  count_lt: Int
+  count_lte: Int
+  count_gt: Int
+  count_gte: Int
   AND: [VehicleWhereInput!]
   OR: [VehicleWhereInput!]
   NOT: [VehicleWhereInput!]
