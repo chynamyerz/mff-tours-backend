@@ -245,8 +245,8 @@ const Mutation = {
         });
 
         await ctx.prisma.createBooking({
-          pickupDate: args.pickupDate,
-          returnDate: args.returnDate,
+          pickupDate: args.pickupDate.toString(),
+          returnDate: args.returnDate.toString(),
           status: "BOOKED",
           user: {
             connect: {
@@ -318,8 +318,8 @@ const Mutation = {
         });
 
         await ctx.prisma.createBooking({
-          pickupDate: args.pickupDate,
-          returnDate: args.returnDate,
+          pickupDate: moment(args.pickupDate).format(),
+          returnDate: moment(args.returnDate).format(),
           status: "BOOKED",
           user: {
             connect: {
@@ -337,9 +337,12 @@ const Mutation = {
           Dear ${user.name} <br /><br />
           You recently booked for a vehicle rental with MFF Car Rentals.<br />
           This email serves to confirm that your booking was successful and the MFF Car Rentals is aware of it.<br /><br />
-          Booking information can be viewed on the website under Bookings. <strong>(You must be logged in to view them)</strong><br /><br />
+          Booking information can be viewed on the website under Bookings. <strong>(You must be logged in to view them)</strong><br />
+          In the future, follow this link for terms and conditions:<a href="${process.env.MMF_FRONTEND_HOST}/termsandconditions">
+          MFF Car Rentals Terms and Conditions</a><br /><br />
           Thank you<br /><br />
-          Your one and only Soso the fucking barber`;
+          MFF Car Rentals
+        `;
 
         const adminContentEmail = `
           Dear MFF Car Rentals <br /><br />
@@ -470,15 +473,17 @@ const Mutation = {
             AND: {
               AND: [
                 {
-                  pickupDate_lte: moment(args.pickupDate).format("YYYY-MM-DD")
+                  pickupDate_lte: moment(args.pickupDate).format()
                 },
                 {
-                  returnDate_gte: moment(args.pickupDate).format("YYYY-MM-DD")
+                  returnDate_gte: moment(args.pickupDate).format()
                 },
                 {
-                  pickupDate_lte: moment(args.returnDate).format("YYYY-MM-DD")
+                  pickupDate_lte: moment(args.returnDate).format()
                 },
-                { returnDate_gte: moment(args.returnDate).format("YYYY-MM-DD") }
+                {
+                  returnDate_gte: moment(args.returnDate).format()
+                }
               ]
             }
           }
