@@ -23,6 +23,13 @@ const vehicleProperties = `
   imageURI
   status
   location
+  doors
+  seaters
+  fuelType
+  transmissionType
+  airType
+  bags
+  price
 `;
 
 const bookingProperties = `

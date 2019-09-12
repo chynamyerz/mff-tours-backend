@@ -692,6 +692,13 @@ type Vehicle {
   status: VehicleStatus!
   location: Location!
   count: Int!
+  doors: Int!
+  seaters: Int!
+  fuelType: String!
+  transmissionType: String!
+  airType: String!
+  bags: Int!
+  price: String!
 }
 
 type VehicleConnection {
@@ -712,6 +719,13 @@ input VehicleCreateInput {
   status: VehicleStatus!
   location: Location!
   count: Int!
+  doors: Int!
+  seaters: Int!
+  fuelType: String!
+  transmissionType: String!
+  airType: String!
+  bags: Int!
+  price: String!
 }
 
 input VehicleCreateOneInput {
@@ -755,6 +769,20 @@ enum VehicleOrderByInput {
   location_DESC
   count_ASC
   count_DESC
+  doors_ASC
+  doors_DESC
+  seaters_ASC
+  seaters_DESC
+  fuelType_ASC
+  fuelType_DESC
+  transmissionType_ASC
+  transmissionType_DESC
+  airType_ASC
+  airType_DESC
+  bags_ASC
+  bags_DESC
+  price_ASC
+  price_DESC
 }
 
 type VehiclePreviousValues {
@@ -769,6 +797,13 @@ type VehiclePreviousValues {
   status: VehicleStatus!
   location: Location!
   count: Int!
+  doors: Int!
+  seaters: Int!
+  fuelType: String!
+  transmissionType: String!
+  airType: String!
+  bags: Int!
+  price: String!
 }
 
 enum VehicleSize {
@@ -812,6 +847,13 @@ input VehicleUpdateDataInput {
   status: VehicleStatus
   location: Location
   count: Int
+  doors: Int
+  seaters: Int
+  fuelType: String
+  transmissionType: String
+  airType: String
+  bags: Int
+  price: String
 }
 
 input VehicleUpdateInput {
@@ -825,6 +867,13 @@ input VehicleUpdateInput {
   status: VehicleStatus
   location: Location
   count: Int
+  doors: Int
+  seaters: Int
+  fuelType: String
+  transmissionType: String
+  airType: String
+  bags: Int
+  price: String
 }
 
 input VehicleUpdateManyMutationInput {
@@ -838,6 +887,13 @@ input VehicleUpdateManyMutationInput {
   status: VehicleStatus
   location: Location
   count: Int
+  doors: Int
+  seaters: Int
+  fuelType: String
+  transmissionType: String
+  airType: String
+  bags: Int
+  price: String
 }
 
 input VehicleUpdateOneRequiredInput {
@@ -955,6 +1011,86 @@ input VehicleWhereInput {
   count_lte: Int
   count_gt: Int
   count_gte: Int
+  doors: Int
+  doors_not: Int
+  doors_in: [Int!]
+  doors_not_in: [Int!]
+  doors_lt: Int
+  doors_lte: Int
+  doors_gt: Int
+  doors_gte: Int
+  seaters: Int
+  seaters_not: Int
+  seaters_in: [Int!]
+  seaters_not_in: [Int!]
+  seaters_lt: Int
+  seaters_lte: Int
+  seaters_gt: Int
+  seaters_gte: Int
+  fuelType: String
+  fuelType_not: String
+  fuelType_in: [String!]
+  fuelType_not_in: [String!]
+  fuelType_lt: String
+  fuelType_lte: String
+  fuelType_gt: String
+  fuelType_gte: String
+  fuelType_contains: String
+  fuelType_not_contains: String
+  fuelType_starts_with: String
+  fuelType_not_starts_with: String
+  fuelType_ends_with: String
+  fuelType_not_ends_with: String
+  transmissionType: String
+  transmissionType_not: String
+  transmissionType_in: [String!]
+  transmissionType_not_in: [String!]
+  transmissionType_lt: String
+  transmissionType_lte: String
+  transmissionType_gt: String
+  transmissionType_gte: String
+  transmissionType_contains: String
+  transmissionType_not_contains: String
+  transmissionType_starts_with: String
+  transmissionType_not_starts_with: String
+  transmissionType_ends_with: String
+  transmissionType_not_ends_with: String
+  airType: String
+  airType_not: String
+  airType_in: [String!]
+  airType_not_in: [String!]
+  airType_lt: String
+  airType_lte: String
+  airType_gt: String
+  airType_gte: String
+  airType_contains: String
+  airType_not_contains: String
+  airType_starts_with: String
+  airType_not_starts_with: String
+  airType_ends_with: String
+  airType_not_ends_with: String
+  bags: Int
+  bags_not: Int
+  bags_in: [Int!]
+  bags_not_in: [Int!]
+  bags_lt: Int
+  bags_lte: Int
+  bags_gt: Int
+  bags_gte: Int
+  price: String
+  price_not: String
+  price_in: [String!]
+  price_not_in: [String!]
+  price_lt: String
+  price_lte: String
+  price_gt: String
+  price_gte: String
+  price_contains: String
+  price_not_contains: String
+  price_starts_with: String
+  price_not_starts_with: String
+  price_ends_with: String
+  price_not_ends_with: String
   AND: [VehicleWhereInput!]
   OR: [VehicleWhereInput!]
   NOT: [VehicleWhereInput!]

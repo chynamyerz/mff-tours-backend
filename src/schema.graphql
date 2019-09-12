@@ -177,6 +177,22 @@ type Mutation {
       Vehicle image uri
     status:
       Vehicle status (AVAILABLE, UNAVAILABLE)
+    location:
+      vehicle location (EMPANGANE or RICHARDS_BAY)
+    doors:
+      vehicle number of doors
+    seaters:
+      vehicle number of seats
+    fuelType:
+      vehicle fuel type
+    transmissionType:
+      vehicle transmission type
+    airType:
+      vehicle air type (Aircon or Fan)
+    bags:
+      vehicle number of air bags
+    price:
+      vehicle rental price
   """
   addVehicle(
     count: Int!
@@ -189,6 +205,13 @@ type Mutation {
     imageURI: String!
     status: String!
     location: String!
+    doors: Int!
+    seaters: Int!
+    fuelType: String!
+    transmissionType: String!
+    airType: String!
+    bags: Int!
+    price: String!
   ): SuccessMessage!
 
   """
@@ -217,6 +240,22 @@ type Mutation {
       Vehicle image uri
     status:
       Vehicle status (AVAILABLE, UNAVAILABLE)
+    location:
+      vehicle location (EMPANGANE or RICHARDS_BAY)
+    doors:
+      vehicle number of doors
+    seaters:
+      vehicle number of seats
+    fuelType:
+      vehicle fuel type
+    transmissionType:
+      vehicle transmission type
+    airType:
+      vehicle air type (Aircon or Fan)
+    bags:
+      vehicle number of air bags
+    price:
+      vehicle rental price
     password:
       Password of the user who is logged in
   """
@@ -233,6 +272,13 @@ type Mutation {
     status: String
     password: String!
     location: String
+    doors: Int
+    seaters: Int
+    fuelType: String
+    transmissionType: String
+    airType: String
+    bags: Int
+    price: String
   ): SuccessMessage!
 
   """
@@ -348,6 +394,13 @@ type Vehicle {
   imageURI: String!
   status: VehicleStatus!
   location: Location!
+  doors: Int!
+  seaters: Int!
+  fuelType: String!
+  transmissionType: String!
+  airType: String!
+  bags: Int!
+  price: String!
 }
 
 """

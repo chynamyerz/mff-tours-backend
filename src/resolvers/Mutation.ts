@@ -551,15 +551,22 @@ const Mutation = {
 
       // Add vehicle
       await ctx.prisma.createVehicle({
+        airType: args.airType,
+        bags: args.bags,
         count: args.count,
+        doors: args.doors,
+        fuelType: args.fuelType,
         group: args.group,
         imageURI: args.imageURI,
         location: args.location,
         make: args.make,
         model: args.model,
         name: args.name,
+        price: args.price,
+        seaters: args.seaters,
         size: args.size,
         status: args.status,
+        transmissionType: args.transmissionType,
         year: args.year
       });
 
@@ -664,6 +671,46 @@ const Mutation = {
       // If vehicle year is to change
       if (args.year) {
         vehicleToUpdate.year = args.year;
+      }
+
+      // If vehicle location is to change
+      if (args.location) {
+        vehicleToUpdate.location = args.location;
+      }
+
+      // If vehicle doors is to change
+      if (args.doors) {
+        vehicleToUpdate.doors = args.doors;
+      }
+
+      // If vehicle seaters is to change
+      if (args.seaters) {
+        vehicleToUpdate.seaters = args.seaters;
+      }
+
+      // If vehicle fuelType is to change
+      if (args.fuelType) {
+        vehicleToUpdate.fuelType = args.fuelType;
+      }
+
+      // If vehicle transmissionType is to change
+      if (args.transmissionType) {
+        vehicleToUpdate.transmissionType = args.transmissionType;
+      }
+
+      // If vehicle airType is to change
+      if (args.airType) {
+        vehicleToUpdate.airType = args.airType;
+      }
+
+      // If vehicle bags is to change
+      if (args.bags) {
+        vehicleToUpdate.bags = args.bags;
+      }
+
+      // If vehicle price is to change
+      if (args.price) {
+        vehicleToUpdate.price = args.price;
       }
 
       // Add vehicle

@@ -253,7 +253,21 @@ export type VehicleOrderByInput =
   | "location_ASC"
   | "location_DESC"
   | "count_ASC"
-  | "count_DESC";
+  | "count_DESC"
+  | "doors_ASC"
+  | "doors_DESC"
+  | "seaters_ASC"
+  | "seaters_DESC"
+  | "fuelType_ASC"
+  | "fuelType_DESC"
+  | "transmissionType_ASC"
+  | "transmissionType_DESC"
+  | "airType_ASC"
+  | "airType_DESC"
+  | "bags_ASC"
+  | "bags_DESC"
+  | "price_ASC"
+  | "price_DESC";
 
 export interface VehicleCreateInput {
   id?: Maybe<ID_Input>;
@@ -267,6 +281,13 @@ export interface VehicleCreateInput {
   status: VehicleStatus;
   location: Location;
   count: Int;
+  doors: Int;
+  seaters: Int;
+  fuelType: String;
+  transmissionType: String;
+  airType: String;
+  bags: Int;
+  price: String;
 }
 
 export type BookingWhereUniqueInput = AtLeastOne<{
@@ -539,6 +560,13 @@ export interface VehicleUpdateManyMutationInput {
   status?: Maybe<VehicleStatus>;
   location?: Maybe<Location>;
   count?: Maybe<Int>;
+  doors?: Maybe<Int>;
+  seaters?: Maybe<Int>;
+  fuelType?: Maybe<String>;
+  transmissionType?: Maybe<String>;
+  airType?: Maybe<String>;
+  bags?: Maybe<Int>;
+  price?: Maybe<String>;
 }
 
 export interface BookingCreateInput {
@@ -692,6 +720,13 @@ export interface VehicleUpdateInput {
   status?: Maybe<VehicleStatus>;
   location?: Maybe<Location>;
   count?: Maybe<Int>;
+  doors?: Maybe<Int>;
+  seaters?: Maybe<Int>;
+  fuelType?: Maybe<String>;
+  transmissionType?: Maybe<String>;
+  airType?: Maybe<String>;
+  bags?: Maybe<Int>;
+  price?: Maybe<String>;
 }
 
 export interface VehicleUpdateDataInput {
@@ -705,6 +740,13 @@ export interface VehicleUpdateDataInput {
   status?: Maybe<VehicleStatus>;
   location?: Maybe<Location>;
   count?: Maybe<Int>;
+  doors?: Maybe<Int>;
+  seaters?: Maybe<Int>;
+  fuelType?: Maybe<String>;
+  transmissionType?: Maybe<String>;
+  airType?: Maybe<String>;
+  bags?: Maybe<Int>;
+  price?: Maybe<String>;
 }
 
 export interface BookingUpdateManyWithWhereNestedInput {
@@ -894,6 +936,86 @@ export interface VehicleWhereInput {
   count_lte?: Maybe<Int>;
   count_gt?: Maybe<Int>;
   count_gte?: Maybe<Int>;
+  doors?: Maybe<Int>;
+  doors_not?: Maybe<Int>;
+  doors_in?: Maybe<Int[] | Int>;
+  doors_not_in?: Maybe<Int[] | Int>;
+  doors_lt?: Maybe<Int>;
+  doors_lte?: Maybe<Int>;
+  doors_gt?: Maybe<Int>;
+  doors_gte?: Maybe<Int>;
+  seaters?: Maybe<Int>;
+  seaters_not?: Maybe<Int>;
+  seaters_in?: Maybe<Int[] | Int>;
+  seaters_not_in?: Maybe<Int[] | Int>;
+  seaters_lt?: Maybe<Int>;
+  seaters_lte?: Maybe<Int>;
+  seaters_gt?: Maybe<Int>;
+  seaters_gte?: Maybe<Int>;
+  fuelType?: Maybe<String>;
+  fuelType_not?: Maybe<String>;
+  fuelType_in?: Maybe<String[] | String>;
+  fuelType_not_in?: Maybe<String[] | String>;
+  fuelType_lt?: Maybe<String>;
+  fuelType_lte?: Maybe<String>;
+  fuelType_gt?: Maybe<String>;
+  fuelType_gte?: Maybe<String>;
+  fuelType_contains?: Maybe<String>;
+  fuelType_not_contains?: Maybe<String>;
+  fuelType_starts_with?: Maybe<String>;
+  fuelType_not_starts_with?: Maybe<String>;
+  fuelType_ends_with?: Maybe<String>;
+  fuelType_not_ends_with?: Maybe<String>;
+  transmissionType?: Maybe<String>;
+  transmissionType_not?: Maybe<String>;
+  transmissionType_in?: Maybe<String[] | String>;
+  transmissionType_not_in?: Maybe<String[] | String>;
+  transmissionType_lt?: Maybe<String>;
+  transmissionType_lte?: Maybe<String>;
+  transmissionType_gt?: Maybe<String>;
+  transmissionType_gte?: Maybe<String>;
+  transmissionType_contains?: Maybe<String>;
+  transmissionType_not_contains?: Maybe<String>;
+  transmissionType_starts_with?: Maybe<String>;
+  transmissionType_not_starts_with?: Maybe<String>;
+  transmissionType_ends_with?: Maybe<String>;
+  transmissionType_not_ends_with?: Maybe<String>;
+  airType?: Maybe<String>;
+  airType_not?: Maybe<String>;
+  airType_in?: Maybe<String[] | String>;
+  airType_not_in?: Maybe<String[] | String>;
+  airType_lt?: Maybe<String>;
+  airType_lte?: Maybe<String>;
+  airType_gt?: Maybe<String>;
+  airType_gte?: Maybe<String>;
+  airType_contains?: Maybe<String>;
+  airType_not_contains?: Maybe<String>;
+  airType_starts_with?: Maybe<String>;
+  airType_not_starts_with?: Maybe<String>;
+  airType_ends_with?: Maybe<String>;
+  airType_not_ends_with?: Maybe<String>;
+  bags?: Maybe<Int>;
+  bags_not?: Maybe<Int>;
+  bags_in?: Maybe<Int[] | Int>;
+  bags_not_in?: Maybe<Int[] | Int>;
+  bags_lt?: Maybe<Int>;
+  bags_lte?: Maybe<Int>;
+  bags_gt?: Maybe<Int>;
+  bags_gte?: Maybe<Int>;
+  price?: Maybe<String>;
+  price_not?: Maybe<String>;
+  price_in?: Maybe<String[] | String>;
+  price_not_in?: Maybe<String[] | String>;
+  price_lt?: Maybe<String>;
+  price_lte?: Maybe<String>;
+  price_gt?: Maybe<String>;
+  price_gte?: Maybe<String>;
+  price_contains?: Maybe<String>;
+  price_not_contains?: Maybe<String>;
+  price_starts_with?: Maybe<String>;
+  price_not_starts_with?: Maybe<String>;
+  price_ends_with?: Maybe<String>;
+  price_not_ends_with?: Maybe<String>;
   AND?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
   OR?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
   NOT?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
@@ -938,6 +1060,13 @@ export interface VehiclePreviousValues {
   status: VehicleStatus;
   location: Location;
   count: Int;
+  doors: Int;
+  seaters: Int;
+  fuelType: String;
+  transmissionType: String;
+  airType: String;
+  bags: Int;
+  price: String;
 }
 
 export interface VehiclePreviousValuesPromise
@@ -954,6 +1083,13 @@ export interface VehiclePreviousValuesPromise
   status: () => Promise<VehicleStatus>;
   location: () => Promise<Location>;
   count: () => Promise<Int>;
+  doors: () => Promise<Int>;
+  seaters: () => Promise<Int>;
+  fuelType: () => Promise<String>;
+  transmissionType: () => Promise<String>;
+  airType: () => Promise<String>;
+  bags: () => Promise<Int>;
+  price: () => Promise<String>;
 }
 
 export interface VehiclePreviousValuesSubscription
@@ -970,6 +1106,13 @@ export interface VehiclePreviousValuesSubscription
   status: () => Promise<AsyncIterator<VehicleStatus>>;
   location: () => Promise<AsyncIterator<Location>>;
   count: () => Promise<AsyncIterator<Int>>;
+  doors: () => Promise<AsyncIterator<Int>>;
+  seaters: () => Promise<AsyncIterator<Int>>;
+  fuelType: () => Promise<AsyncIterator<String>>;
+  transmissionType: () => Promise<AsyncIterator<String>>;
+  airType: () => Promise<AsyncIterator<String>>;
+  bags: () => Promise<AsyncIterator<Int>>;
+  price: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BookingEdge {
@@ -1437,6 +1580,13 @@ export interface Vehicle {
   status: VehicleStatus;
   location: Location;
   count: Int;
+  doors: Int;
+  seaters: Int;
+  fuelType: String;
+  transmissionType: String;
+  airType: String;
+  bags: Int;
+  price: String;
 }
 
 export interface VehiclePromise extends Promise<Vehicle>, Fragmentable {
@@ -1451,6 +1601,13 @@ export interface VehiclePromise extends Promise<Vehicle>, Fragmentable {
   status: () => Promise<VehicleStatus>;
   location: () => Promise<Location>;
   count: () => Promise<Int>;
+  doors: () => Promise<Int>;
+  seaters: () => Promise<Int>;
+  fuelType: () => Promise<String>;
+  transmissionType: () => Promise<String>;
+  airType: () => Promise<String>;
+  bags: () => Promise<Int>;
+  price: () => Promise<String>;
 }
 
 export interface VehicleSubscription
@@ -1467,6 +1624,13 @@ export interface VehicleSubscription
   status: () => Promise<AsyncIterator<VehicleStatus>>;
   location: () => Promise<AsyncIterator<Location>>;
   count: () => Promise<AsyncIterator<Int>>;
+  doors: () => Promise<AsyncIterator<Int>>;
+  seaters: () => Promise<AsyncIterator<Int>>;
+  fuelType: () => Promise<AsyncIterator<String>>;
+  transmissionType: () => Promise<AsyncIterator<String>>;
+  airType: () => Promise<AsyncIterator<String>>;
+  bags: () => Promise<AsyncIterator<Int>>;
+  price: () => Promise<AsyncIterator<String>>;
 }
 
 export interface VehicleNullablePromise
@@ -1483,6 +1647,13 @@ export interface VehicleNullablePromise
   status: () => Promise<VehicleStatus>;
   location: () => Promise<Location>;
   count: () => Promise<Int>;
+  doors: () => Promise<Int>;
+  seaters: () => Promise<Int>;
+  fuelType: () => Promise<String>;
+  transmissionType: () => Promise<String>;
+  airType: () => Promise<String>;
+  bags: () => Promise<Int>;
+  price: () => Promise<String>;
 }
 
 export interface VehicleEdge {

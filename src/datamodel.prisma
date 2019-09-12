@@ -27,6 +27,13 @@ type Vehicle {
   status: VehicleStatus! @scalar
   location: Location! @scalar
   count: Int!
+  doors: Int!
+  seaters: Int!
+  fuelType: String!
+  transmissionType: String!
+  airType: String!
+  bags: Int!
+  price: String!
 }
 
 type Booking {
