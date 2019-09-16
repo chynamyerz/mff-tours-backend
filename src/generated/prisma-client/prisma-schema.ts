@@ -25,6 +25,7 @@ type Booking {
   pickupDate: DateTime!
   returnDate: DateTime!
   status: BookingStatus!
+  bookingPrice: String!
 }
 
 type BookingConnection {
@@ -40,6 +41,7 @@ input BookingCreateInput {
   pickupDate: DateTime!
   returnDate: DateTime!
   status: BookingStatus!
+  bookingPrice: String!
 }
 
 input BookingCreateManyWithoutUserInput {
@@ -53,6 +55,7 @@ input BookingCreateWithoutUserInput {
   pickupDate: DateTime!
   returnDate: DateTime!
   status: BookingStatus!
+  bookingPrice: String!
 }
 
 type BookingEdge {
@@ -69,6 +72,8 @@ enum BookingOrderByInput {
   returnDate_DESC
   status_ASC
   status_DESC
+  bookingPrice_ASC
+  bookingPrice_DESC
 }
 
 type BookingPreviousValues {
@@ -76,6 +81,7 @@ type BookingPreviousValues {
   pickupDate: DateTime!
   returnDate: DateTime!
   status: BookingStatus!
+  bookingPrice: String!
 }
 
 input BookingScalarWhereInput {
@@ -113,6 +119,20 @@ input BookingScalarWhereInput {
   status_not: BookingStatus
   status_in: [BookingStatus!]
   status_not_in: [BookingStatus!]
+  bookingPrice: String
+  bookingPrice_not: String
+  bookingPrice_in: [String!]
+  bookingPrice_not_in: [String!]
+  bookingPrice_lt: String
+  bookingPrice_lte: String
+  bookingPrice_gt: String
+  bookingPrice_gte: String
+  bookingPrice_contains: String
+  bookingPrice_not_contains: String
+  bookingPrice_starts_with: String
+  bookingPrice_not_starts_with: String
+  bookingPrice_ends_with: String
+  bookingPrice_not_ends_with: String
   AND: [BookingScalarWhereInput!]
   OR: [BookingScalarWhereInput!]
   NOT: [BookingScalarWhereInput!]
@@ -148,18 +168,21 @@ input BookingUpdateInput {
   pickupDate: DateTime
   returnDate: DateTime
   status: BookingStatus
+  bookingPrice: String
 }
 
 input BookingUpdateManyDataInput {
   pickupDate: DateTime
   returnDate: DateTime
   status: BookingStatus
+  bookingPrice: String
 }
 
 input BookingUpdateManyMutationInput {
   pickupDate: DateTime
   returnDate: DateTime
   status: BookingStatus
+  bookingPrice: String
 }
 
 input BookingUpdateManyWithoutUserInput {
@@ -184,6 +207,7 @@ input BookingUpdateWithoutUserDataInput {
   pickupDate: DateTime
   returnDate: DateTime
   status: BookingStatus
+  bookingPrice: String
 }
 
 input BookingUpdateWithWhereUniqueWithoutUserInput {
@@ -234,6 +258,20 @@ input BookingWhereInput {
   status_not: BookingStatus
   status_in: [BookingStatus!]
   status_not_in: [BookingStatus!]
+  bookingPrice: String
+  bookingPrice_not: String
+  bookingPrice_in: [String!]
+  bookingPrice_not_in: [String!]
+  bookingPrice_lt: String
+  bookingPrice_lte: String
+  bookingPrice_gt: String
+  bookingPrice_gte: String
+  bookingPrice_contains: String
+  bookingPrice_not_contains: String
+  bookingPrice_starts_with: String
+  bookingPrice_not_starts_with: String
+  bookingPrice_ends_with: String
+  bookingPrice_not_ends_with: String
   AND: [BookingWhereInput!]
   OR: [BookingWhereInput!]
   NOT: [BookingWhereInput!]

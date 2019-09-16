@@ -37,6 +37,7 @@ const bookingProperties = `
   pickupDate
   returnDate
   status
+  bookingPrice
 `;
 
 export const userFragment: any = `{

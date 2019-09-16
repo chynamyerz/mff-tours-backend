@@ -245,6 +245,7 @@ const Mutation = {
         });
 
         await ctx.prisma.createBooking({
+          bookingPrice: args.beyondKZN ? "2000.00" : vehicle.price,
           pickupDate: args.pickupDate.toString(),
           returnDate: args.returnDate.toString(),
           status: "BOOKED",
@@ -318,6 +319,7 @@ const Mutation = {
         });
 
         await ctx.prisma.createBooking({
+          bookingPrice: args.beyondKZN ? "2000.00" : vehicle.price,
           pickupDate: moment(args.pickupDate).format(),
           returnDate: moment(args.returnDate).format(),
           status: "BOOKED",

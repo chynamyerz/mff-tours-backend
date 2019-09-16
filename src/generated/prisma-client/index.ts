@@ -223,7 +223,9 @@ export type BookingOrderByInput =
   | "returnDate_ASC"
   | "returnDate_DESC"
   | "status_ASC"
-  | "status_DESC";
+  | "status_DESC"
+  | "bookingPrice_ASC"
+  | "bookingPrice_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -361,6 +363,7 @@ export interface BookingCreateWithoutUserInput {
   pickupDate: DateTimeInput;
   returnDate: DateTimeInput;
   status: BookingStatus;
+  bookingPrice: String;
 }
 
 export interface UserWhereInput {
@@ -576,6 +579,7 @@ export interface BookingCreateInput {
   pickupDate: DateTimeInput;
   returnDate: DateTimeInput;
   status: BookingStatus;
+  bookingPrice: String;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -645,6 +649,20 @@ export interface BookingScalarWhereInput {
   status_not?: Maybe<BookingStatus>;
   status_in?: Maybe<BookingStatus[] | BookingStatus>;
   status_not_in?: Maybe<BookingStatus[] | BookingStatus>;
+  bookingPrice?: Maybe<String>;
+  bookingPrice_not?: Maybe<String>;
+  bookingPrice_in?: Maybe<String[] | String>;
+  bookingPrice_not_in?: Maybe<String[] | String>;
+  bookingPrice_lt?: Maybe<String>;
+  bookingPrice_lte?: Maybe<String>;
+  bookingPrice_gt?: Maybe<String>;
+  bookingPrice_gte?: Maybe<String>;
+  bookingPrice_contains?: Maybe<String>;
+  bookingPrice_not_contains?: Maybe<String>;
+  bookingPrice_starts_with?: Maybe<String>;
+  bookingPrice_not_starts_with?: Maybe<String>;
+  bookingPrice_ends_with?: Maybe<String>;
+  bookingPrice_not_ends_with?: Maybe<String>;
   AND?: Maybe<BookingScalarWhereInput[] | BookingScalarWhereInput>;
   OR?: Maybe<BookingScalarWhereInput[] | BookingScalarWhereInput>;
   NOT?: Maybe<BookingScalarWhereInput[] | BookingScalarWhereInput>;
@@ -660,6 +678,7 @@ export interface BookingUpdateWithoutUserDataInput {
   pickupDate?: Maybe<DateTimeInput>;
   returnDate?: Maybe<DateTimeInput>;
   status?: Maybe<BookingStatus>;
+  bookingPrice?: Maybe<String>;
 }
 
 export interface UserCreateWithoutBookingsInput {
@@ -689,6 +708,7 @@ export interface BookingUpdateInput {
   pickupDate?: Maybe<DateTimeInput>;
   returnDate?: Maybe<DateTimeInput>;
   status?: Maybe<BookingStatus>;
+  bookingPrice?: Maybe<String>;
 }
 
 export interface VehicleSubscriptionWhereInput {
@@ -791,6 +811,20 @@ export interface BookingWhereInput {
   status_not?: Maybe<BookingStatus>;
   status_in?: Maybe<BookingStatus[] | BookingStatus>;
   status_not_in?: Maybe<BookingStatus[] | BookingStatus>;
+  bookingPrice?: Maybe<String>;
+  bookingPrice_not?: Maybe<String>;
+  bookingPrice_in?: Maybe<String[] | String>;
+  bookingPrice_not_in?: Maybe<String[] | String>;
+  bookingPrice_lt?: Maybe<String>;
+  bookingPrice_lte?: Maybe<String>;
+  bookingPrice_gt?: Maybe<String>;
+  bookingPrice_gte?: Maybe<String>;
+  bookingPrice_contains?: Maybe<String>;
+  bookingPrice_not_contains?: Maybe<String>;
+  bookingPrice_starts_with?: Maybe<String>;
+  bookingPrice_not_starts_with?: Maybe<String>;
+  bookingPrice_ends_with?: Maybe<String>;
+  bookingPrice_not_ends_with?: Maybe<String>;
   AND?: Maybe<BookingWhereInput[] | BookingWhereInput>;
   OR?: Maybe<BookingWhereInput[] | BookingWhereInput>;
   NOT?: Maybe<BookingWhereInput[] | BookingWhereInput>;
@@ -804,6 +838,7 @@ export interface BookingUpdateManyMutationInput {
   pickupDate?: Maybe<DateTimeInput>;
   returnDate?: Maybe<DateTimeInput>;
   status?: Maybe<BookingStatus>;
+  bookingPrice?: Maybe<String>;
 }
 
 export interface UserUpsertWithoutBookingsInput {
@@ -1031,6 +1066,7 @@ export interface BookingUpdateManyDataInput {
   pickupDate?: Maybe<DateTimeInput>;
   returnDate?: Maybe<DateTimeInput>;
   status?: Maybe<BookingStatus>;
+  bookingPrice?: Maybe<String>;
 }
 
 export interface BookingSubscriptionWhereInput {
@@ -1443,6 +1479,7 @@ export interface BookingPreviousValues {
   pickupDate: DateTimeOutput;
   returnDate: DateTimeOutput;
   status: BookingStatus;
+  bookingPrice: String;
 }
 
 export interface BookingPreviousValuesPromise
@@ -1452,6 +1489,7 @@ export interface BookingPreviousValuesPromise
   pickupDate: () => Promise<DateTimeOutput>;
   returnDate: () => Promise<DateTimeOutput>;
   status: () => Promise<BookingStatus>;
+  bookingPrice: () => Promise<String>;
 }
 
 export interface BookingPreviousValuesSubscription
@@ -1461,6 +1499,7 @@ export interface BookingPreviousValuesSubscription
   pickupDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   returnDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   status: () => Promise<AsyncIterator<BookingStatus>>;
+  bookingPrice: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BookingSubscriptionPayload {
@@ -1493,6 +1532,7 @@ export interface Booking {
   pickupDate: DateTimeOutput;
   returnDate: DateTimeOutput;
   status: BookingStatus;
+  bookingPrice: String;
 }
 
 export interface BookingPromise extends Promise<Booking>, Fragmentable {
@@ -1502,6 +1542,7 @@ export interface BookingPromise extends Promise<Booking>, Fragmentable {
   pickupDate: () => Promise<DateTimeOutput>;
   returnDate: () => Promise<DateTimeOutput>;
   status: () => Promise<BookingStatus>;
+  bookingPrice: () => Promise<String>;
 }
 
 export interface BookingSubscription
@@ -1513,6 +1554,7 @@ export interface BookingSubscription
   pickupDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   returnDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   status: () => Promise<AsyncIterator<BookingStatus>>;
+  bookingPrice: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BookingNullablePromise
@@ -1524,6 +1566,7 @@ export interface BookingNullablePromise
   pickupDate: () => Promise<DateTimeOutput>;
   returnDate: () => Promise<DateTimeOutput>;
   status: () => Promise<BookingStatus>;
+  bookingPrice: () => Promise<String>;
 }
 
 export interface VehicleSubscriptionPayload {

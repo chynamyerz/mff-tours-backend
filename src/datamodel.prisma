@@ -43,6 +43,7 @@ type Booking {
   pickupDate: DateTime!
   returnDate: DateTime!
   status: BookingStatus! @scalar
+  bookingPrice: String!
 }
 
 enum Role {

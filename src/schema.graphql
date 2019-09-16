@@ -138,6 +138,7 @@ type Mutation {
       A return date
   """
   bookVehicle(
+    beyondKZN: Boolean!
     email: String
     vehicleId: ID!
     pickupDate: String!
@@ -377,6 +378,7 @@ type Booking {
   pickupDate: String!
   returnDate: String!
   status: BookingStatus!
+  bookingPrice: String!
 }
 
 """
