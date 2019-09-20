@@ -156,7 +156,9 @@ const Mutation = {
 
         // Check if the submitted email for registering already exists.
         if (await ctx.prisma.user({ email: args.email })) {
-          throw new Error("Email address already exists.");
+          if (user.role !== "ADMIN") {
+            throw new Error("Email address already exists.");
+          }
         }
 
         userToUpdate.email = args.email;
@@ -170,6 +172,16 @@ const Mutation = {
         userToUpdate.password = password;
       }
 
+      if (user && user.role === "ADMIN") {
+        await ctx.prisma.updateUser({
+          data: userToUpdate,
+          where: {
+            email: args.email
+          }
+        });
+
+        return { message: "Updated successfully" };
+      }
       await ctx.prisma.updateUser({
         data: userToUpdate,
         where: {
@@ -196,9 +208,13 @@ const Mutation = {
     try {
       // currently logged in user
       const user = ctx.user
-        ? await ctx.prisma.user({
-            id: ctx.user.id
-          })
+        ? args.email
+          ? await ctx.prisma.user({
+              email: args.email
+            })
+          : await ctx.prisma.user({
+              id: ctx.user.id
+            })
         : await ctx.prisma.user({
             email: args.email
           });
