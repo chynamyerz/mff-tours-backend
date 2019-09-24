@@ -153,7 +153,7 @@ const createServer = async () => {
    */
   server.express.get("/termsandconditions", (req, res) => {
     // Download the data request file
-    res.download("./src/files/termsandconditions.pdf", err => {
+    res.download("./src/termsandconditions.pdf", err => {
       if (err) {
         if (!res.headersSent) {
           res.status(404).send("File does not exist");
