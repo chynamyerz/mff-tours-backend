@@ -18,6 +18,10 @@
     {
       "src": "/auth/logout",
       "dest": "src/index.ts"
+    },
+    {
+      "src": "/termsandconditions",
+      "dest": "src/index.ts"
     }
   ],
   "env": {
