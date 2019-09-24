@@ -26,6 +26,7 @@
     "MMF_FRONTEND_HOST": "@mmf_frontend_host",
     "MMF_MAIL_USER": "@mmf_mail_user",
     "MMF_MAIL_PASSWORD": "@mmf_mail_password",
-    "MMF_MAIL_SERVICE": "@mmf_mail_service"
+    "MMF_MAIL_SERVICE": "@mmf_mail_service",
+    "REACT_APP_MMF_BACKEND_URL": "@react_app_mmf_backend_url"
   }
 }
