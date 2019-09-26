@@ -282,7 +282,7 @@ const Mutation = {
           You recently booked for a vehicle rental with MFF Car Rentals.<br />
           This email serves to confirm that your booking was successful and the MFF Car Rentals is aware of it.<br /><br />
           Booking information can be viewed on the website under Bookings. <strong>(You must be logged in to view them)</strong><br />
-          In the future, follow this link for terms and conditions:<a href="${process.env.REACT_APP_MMF_TERMS_AND_CONDITIONS}/termsandconditions">
+          In the future, follow this link for terms and conditions:<a href="${process.env.REACT_APP_MMF_TERMS_AND_CONDITIONS}">
           MFF Car Rentals Terms and Conditions</a><br /><br />
           Thank you<br /><br />
           MFF Car Rentals`;
@@ -356,7 +356,7 @@ const Mutation = {
           You recently booked for a vehicle rental with MFF Car Rentals.<br />
           This email serves to confirm that your booking was successful and the MFF Car Rentals is aware of it.<br /><br />
           Booking information can be viewed on the website under Bookings. <strong>(You must be logged in to view them)</strong><br />
-          In the future, follow this link for terms and conditions:<a href="${process.env.REACT_APP_MMF_TERMS_AND_CONDITIONS}/termsandconditions">
+          In the future, follow this link for terms and conditions:<a href="${process.env.REACT_APP_MMF_TERMS_AND_CONDITIONS}">
           MFF Car Rentals Terms and Conditions</a><br /><br />
           Thank you<br /><br />
           MFF Car Rentals
